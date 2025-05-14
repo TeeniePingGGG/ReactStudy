@@ -1,8 +1,3 @@
-/* *{
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 16px;
-} */
-
  *{margin:5px;}
     input,textarea { width:95%; }
     input[type=submit] { width:100px; }
@@ -23,15 +18,4 @@
     }    
     #boardTable td.subject{
         text-align: left;
-    }
-
-    /*************************** 위쪽은 게시판, 아래쪽은 스타일 예제에 사용 ************************************/
-    .backEnd{
-      color: blue;
-    }
-    #backEndsub{
-      font-weight: bold; font-size: 1,5em;
-    }
-    .warnings{
-      color: white; background-color: red; font-size: 1.2em;
     }
