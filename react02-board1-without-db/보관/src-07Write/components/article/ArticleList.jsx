@@ -9,7 +9,7 @@
             event.preventDefault();
             props.onChangeMode(row.no);
           }}>{row.title}</a></td>
-          <td className="cen">{row.wirter}</td>
+          <td className="cen">{row.writer}</td>
           <td className="cen">{row.date}</td>
         </tr>
       );

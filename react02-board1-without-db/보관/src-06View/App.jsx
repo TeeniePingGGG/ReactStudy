@@ -34,13 +34,13 @@ function Header(props){
   function App(){
     //게시판의 데이터로 사용할 객체형 배열
     const boardData=[
-      {no:1, title:'오늘은 React 공부 하는 날', wirter:'낙자쌤', date:'2023-01-01',
+      {no:1, title:'오늘은 React 공부 하는 날', writer:'낙자쌤', date:'2023-01-01',
         contents:'React를 뽀개봅시당'
       },
-      {no:2, title:'어제는 JavaScript 공부해씸', wirter:'유겸이', date:'2023-03-03',
+      {no:2, title:'어제는 JavaScript 공부해씸', writer:'유겸이', date:'2023-03-03',
         contents:'JavaScript는 할게 너무 많아요'
       },
-      {no:3, title:'내일은 Project 해야징', wirter:'개똥이', date:'2023-05-05',
+      {no:3, title:'내일은 Project 해야징', writer:'개똥이', date:'2023-05-05',
         contents:'Project는 뭘 만들어볼까?'
       }
     ];
