@@ -110,6 +110,7 @@ function Header(props){
           alert('다 입력해주세용');
           return;
         }
+
         //작성일을 Date객체를 통해 생성
         let dateObj = new Date();
         //현재년도 
@@ -138,6 +139,14 @@ function Header(props){
         //복사된 배열을 통해 스테이트를 변경한다.
         setBoardData(copyBoardData);
 
+
+        /*
+        배열의 복사본을 만들면 메모리에는 새로운 배열이 하나 추가된다. 복사본에
+        데이터를 추가한 후 이를 통해 State를 변경한다. 그러면 새롭게 생성된 배열의
+        참조값을 통해  State를 변경했으므로 React는 변화를 감지하여 새로운 렌더링을
+        하게 된다.
+        JavaScript는 얕은 참조라는 개념을 통해 객체의 변화를 감지하도록 설계되어 있어
+        이와 같이 처리하는 것이다.  */
         //추가방법2(비추천) 
         // boardData.push(addBoardDate);
         // console.log(boardData);
@@ -149,32 +158,6 @@ function Header(props){
         setMode('list');
       }}></ArticleWrite>;
 
-    }
-    else if(mode=='delete'){
-      //삭제1(권장)
-      //새로운 빈 배열 생성   
-      let newBoardData =[];
-      //데이터의 갯수만큼 반복                    
-      for(let i=0; i<boardData.length; i++){
-        //삭제하려는 게시물이 아닌것만 새로운 배열에 추가한다. 
-        if(no!=boardData[i].no){
-          //새로운 배열에는 삭제하려는 게시물이 추가되지 않는다.
-          newBoardData.push(boardData[i]);
-        }
-      }
-      //새로운 배열을 통해 스테이트를 변경하면 리렌더링이 된다. 
-      setBoardData(newBoardData);
-
-      //삭제2(비추천)
- /*     for(let i=0; i<boardData.length; i++){
-        if(no==boardData[i].no){
-          boardData.splice(i,1);
-        }
-      }
-      setBoardData(boardData);*/
-
-      //삭제가 완료되면 리스트로 전환한다. 
-      setMode('list');
     }
     else{
       //mode의 값이 없는 경우 '준비중'을 화면에 표시한다.

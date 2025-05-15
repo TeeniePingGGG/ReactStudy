@@ -33,9 +33,7 @@ function Header(props){
 
   function App(){
     //게시판의 데이터로 사용할 객체형 배열
-    /* 작성을 위해 기존의 객체형 배열을 스테이트로 변환한다. 데이터의 추가, 삭제가
-    있을때 새로운 렌더링이 되어야하기 때문이다.  */
-    const [boardData,setBoardData]=useState([
+    const boardData=[
       {no:1, title:'오늘은 React 공부 하는 날', wirter:'낙자쌤', date:'2023-01-01',
         contents:'React를 뽀개봅시당'
       },
@@ -45,7 +43,7 @@ function Header(props){
       {no:3, title:'내일은 Project 해야징', wirter:'개똥이', date:'2023-05-05',
         contents:'Project는 뭘 만들어볼까?'
       }
-    ]);
+    ];
 
     /* 화면 전환을 위한 스테이트 생성. 변수명은 mode, 초깃값은 list,
     변경을 위한 함수는 setMode()로 정의한다.  */
@@ -53,10 +51,6 @@ function Header(props){
 
     //선택한 게시물의 일련번호를 저장. 첫 실행시에는 선택한 게시물이 없으므로 null로 초기화
     const [no,setNo] = useState(null);
-
-    //새로운 게시물 작성시 사용할 시퀀스(Sequence)용도의 스테이트 생성
-    //이미 3개의 게시물이 있으므로 초기값은 4로 설정한다.                     
-    const [nextNo, setNextNo] = useState(4);
 
     //컴포넌트와 타이틀을 저장할 변수 생성
     //선택할 게시물의 객체를 저장할 변수 추가( "{no:1, title:'오늘은" 와 같은 객체를 저장})
@@ -98,83 +92,11 @@ function Header(props){
     }
     else if(mode=='write'){
       titleVar='게시판-쓰기(props)';
-      navComp=<NavWrite onChangeMode={()=>{
-        setMode('list');
+      navComp=<NavWrite onChangeMode={(pmode)=>{
+        setMode(pmode);
       }}></NavWrite>
+      articleComp=<ArticleWrite></ArticleWrite>;
 
-      articleComp=<ArticleWrite writeAction={(t,w,c)=>{
-        //3개의 값을 받을 수 있는 함수를 정의하여 프롭스로 전달
-        console.log('App.js',t,w,c);
-
-        if(t=='' || w=='' || c==''){
-          alert('다 입력해주세용');
-          return;
-        }
-        //작성일을 Date객체를 통해 생성
-        let dateObj = new Date();
-        //현재년도 
-        var year = dateObj.getFullYear();
-        //getMonth() : 0~11까지를 반환하므로 +1 해야 현재월을 구할 수 있다.
-        var month = ("0"+(1+dateObj.getMonth())).slice(-2);
-        /*
-        월과 일이
-          한자리인 경우에는 01과 같이 생성되고
-          두자리인 경우에는 012와 같이 생성되므로 끝에 두자리만 잘라낸다.
-          이떄 slice(-2)를 사용한다.
-        */
-       //0000-00-00 형식으로 날짜를 생성한다. 
-        var day = ("0"+dateObj.getDate()).slice(-2);
-        let nowDate = year+"-"+month+"-"+day;
-
-        /* 스테이트 배열에 추가할 객체르 생성한다. 일련번호를 스테이트로 선언한
-        nextNo를 사용하고, 작성폼에 입력한 값을 받아서 구성한다.  */
-        let addBoardDate = {no:nextNo, title:t, wirter:w, contents:c, date:nowDate};
-
-        //추가 방법 1(권장)
-        //스프레드 연산자로 복사본 배열을 하나 생성한다.
-        let copyBoardData = [...boardData];
-        //복사된 배열에 새로운 객체를 추가한다.
-        copyBoardData.push(addBoardDate);
-        //복사된 배열을 통해 스테이트를 변경한다.
-        setBoardData(copyBoardData);
-
-        //추가방법2(비추천) 
-        // boardData.push(addBoardDate);
-        // console.log(boardData);
-        // setBoardData(boardData);
-
-        //일련번호로 사용하는 스테이트를 1 증가
-        setNextNo(nextNo+1);
-        //글쓰기가 완료되면 화면을 '목록'으로 전환
-        setMode('list');
-      }}></ArticleWrite>;
-
-    }
-    else if(mode=='delete'){
-      //삭제1(권장)
-      //새로운 빈 배열 생성   
-      let newBoardData =[];
-      //데이터의 갯수만큼 반복                    
-      for(let i=0; i<boardData.length; i++){
-        //삭제하려는 게시물이 아닌것만 새로운 배열에 추가한다. 
-        if(no!=boardData[i].no){
-          //새로운 배열에는 삭제하려는 게시물이 추가되지 않는다.
-          newBoardData.push(boardData[i]);
-        }
-      }
-      //새로운 배열을 통해 스테이트를 변경하면 리렌더링이 된다. 
-      setBoardData(newBoardData);
-
-      //삭제2(비추천)
- /*     for(let i=0; i<boardData.length; i++){
-        if(no==boardData[i].no){
-          boardData.splice(i,1);
-        }
-      }
-      setBoardData(boardData);*/
-
-      //삭제가 완료되면 리스트로 전환한다. 
-      setMode('list');
     }
     else{
       //mode의 값이 없는 경우 '준비중'을 화면에 표시한다.
