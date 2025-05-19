@@ -1,0 +1,290 @@
+{
+  "results": [
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Julius",
+        "last": "Kinnunen"
+      },
+      "location": {
+        "street": {
+          "number": 8511,
+          "name": "Rautatienkatu"
+        },
+        "city": "Varkaus",
+        "state": "Kymenlaakso",
+        "country": "Finland",
+        "postcode": 57516,
+        "coordinates": {
+          "latitude": "-22.0448",
+          "longitude": "-128.1128"
+        },
+        "timezone": {
+          "offset": "-11:00",
+          "description": "Midway Island, Samoa"
+        }
+      },
+      "email": "julius.kinnunen@example.com",
+      "login": {
+        "uuid": "651dae48-df30-45ae-b381-a789d6a731ba",
+        "username": "lazybutterfly677",
+        "password": "carpente",
+        "salt": "29nbuO39",
+        "md5": "e98eaea2745e550aab9a4b23aec00bfc",
+        "sha1": "e6c6bdcc99b6cba93f56306e037dde277fd932c8",
+        "sha256": "3f397fc67429a975df36367aa4406c37299b6d07c1d3fd83b5573f0f0f03a357"
+      },
+      "dob": {
+        "date": "1970-11-13T02:01:47.138Z",
+        "age": 54
+      },
+      "registered": {
+        "date": "2012-05-28T08:11:33.838Z",
+        "age": 12
+      },
+      "phone": "08-364-217",
+      "cell": "046-443-79-53",
+      "id": {
+        "name": "HETU",
+        "value": "NaNNA943undefined"
+      },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/men/60.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/60.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/60.jpg"
+      },
+      "nat": "FI"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Monsieur",
+        "first": "Pascal",
+        "last": "Rolland"
+      },
+      "location": {
+        "street": {
+          "number": 9293,
+          "name": "Rue Abel-Hovelacque"
+        },
+        "city": "Porrentruy",
+        "state": "Bern",
+        "country": "Switzerland",
+        "postcode": 9418,
+        "coordinates": {
+          "latitude": "-9.1793",
+          "longitude": "-28.5027"
+        },
+        "timezone": {
+          "offset": "+9:30",
+          "description": "Adelaide, Darwin"
+        }
+      },
+      "email": "pascal.rolland@example.com",
+      "login": {
+        "uuid": "5bf95f75-23ce-4ee5-a3c6-da96ea96a9dc",
+        "username": "purplemeercat843",
+        "password": "goose",
+        "salt": "y2PJA6OM",
+        "md5": "a6da1c0d09e2035e82db886e7fffef30",
+        "sha1": "d8ad40b2b0a617ff82fede72b28d4e69dbe61279",
+        "sha256": "3b8d128297a65c9bde5ff771391e19d00c21945a38cf1440ead9fca2a04b9a41"
+      },
+      "dob": {
+        "date": "1990-09-28T22:11:23.639Z",
+        "age": 34
+      },
+      "registered": {
+        "date": "2004-08-03T01:31:46.869Z",
+        "age": 20
+      },
+      "phone": "079 322 84 53",
+      "cell": "075 672 39 47",
+      "id": {
+        "name": "AVS",
+        "value": "756.7437.6344.92"
+      },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/men/27.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/27.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/27.jpg"
+      },
+      "nat": "CH"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "August",
+        "last": "Kristensen"
+      },
+      "location": {
+        "street": {
+          "number": 5269,
+          "name": "Pederstrupvej"
+        },
+        "city": "København Sv",
+        "state": "Syddanmark",
+        "country": "Denmark",
+        "postcode": 99519,
+        "coordinates": {
+          "latitude": "-68.8497",
+          "longitude": "-82.6605"
+        },
+        "timezone": {
+          "offset": "-10:00",
+          "description": "Hawaii"
+        }
+      },
+      "email": "august.kristensen@example.com",
+      "login": {
+        "uuid": "ee543d78-539c-445f-abb6-5ba576e34225",
+        "username": "blackbear985",
+        "password": "fordf150",
+        "salt": "AqwUE1CV",
+        "md5": "dc50237e399c6c3bfd0c403485f01f3a",
+        "sha1": "799cfb748da8bf8e0454049de342f1989b1c5190",
+        "sha256": "fb09cbbcf43d488c51dfbf8dae675135dae3ac14ad0f4312cb5e83d4f4b4f84c"
+      },
+      "dob": {
+        "date": "1951-04-01T07:59:51.781Z",
+        "age": 74
+      },
+      "registered": {
+        "date": "2010-12-13T11:26:33.193Z",
+        "age": 14
+      },
+      "phone": "51344762",
+      "cell": "36177357",
+      "id": {
+        "name": "CPR",
+        "value": "010451-8321"
+      },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/men/60.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/60.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/60.jpg"
+      },
+      "nat": "DK"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Chico",
+        "last": "Kerremans"
+      },
+      "location": {
+        "street": {
+          "number": 3186,
+          "name": "Houtvester van 'T Hoffweg"
+        },
+        "city": "Oosternijkerk",
+        "state": "Friesland",
+        "country": "Netherlands",
+        "postcode": "6444 YO",
+        "coordinates": {
+          "latitude": "-77.5864",
+          "longitude": "9.6812"
+        },
+        "timezone": {
+          "offset": "+9:30",
+          "description": "Adelaide, Darwin"
+        }
+      },
+      "email": "chico.kerremans@example.com",
+      "login": {
+        "uuid": "97ff645b-7d7c-4520-b169-82576ca35a2c",
+        "username": "yellowkoala837",
+        "password": "jellybea",
+        "salt": "zSVgXnbv",
+        "md5": "7acf413098167d20013740d03580812e",
+        "sha1": "865d5379c549998b91624bd11568964e351e9e25",
+        "sha256": "8f36cd7151abca6b633bfa46b19bb2742c22dd308a1202db90dcb88ed12a3a48"
+      },
+      "dob": {
+        "date": "1958-07-17T19:35:45.096Z",
+        "age": 66
+      },
+      "registered": {
+        "date": "2022-01-19T11:48:30.158Z",
+        "age": 3
+      },
+      "phone": "(000) 5751016",
+      "cell": "(06) 84467459",
+      "id": {
+        "name": "BSN",
+        "value": "54407130"
+      },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/men/54.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/54.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/54.jpg"
+      },
+      "nat": "NL"
+    },
+    {
+      "gender": "female",
+      "name": {
+        "title": "Mrs",
+        "first": "Maia",
+        "last": "Zhang"
+      },
+      "location": {
+        "street": {
+          "number": 8990,
+          "name": "Memorial Avenue"
+        },
+        "city": "Wellington",
+        "state": "Gisborne",
+        "country": "New Zealand",
+        "postcode": 78775,
+        "coordinates": {
+          "latitude": "38.1931",
+          "longitude": "-54.7928"
+        },
+        "timezone": {
+          "offset": "-4:00",
+          "description": "Atlantic Time (Canada), Caracas, La Paz"
+        }
+      },
+      "email": "maia.zhang@example.com",
+      "login": {
+        "uuid": "9cd641b5-25e5-4ca3-b6bc-1c3057f7d3f8",
+        "username": "sadmeercat126",
+        "password": "sister",
+        "salt": "V3lhbdUY",
+        "md5": "50c1af4e447b5ac5c0a4acacd1c541ad",
+        "sha1": "87c4577933a1ca5ef3050a060f395ced432a4732",
+        "sha256": "aeab1adf3e19119213fa87645884bc99307f7397fe7fc8806f6ccd03ba906b90"
+      },
+      "dob": {
+        "date": "1957-10-05T23:16:50.980Z",
+        "age": 67
+      },
+      "registered": {
+        "date": "2013-10-11T17:08:50.078Z",
+        "age": 11
+      },
+      "phone": "(940)-720-4942",
+      "cell": "(553)-506-9167",
+      "id": {
+        "name": "",
+        "value": null
+      },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/women/67.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/women/67.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/women/67.jpg"
+      },
+      "nat": "NZ"
+    }
+  ],
+  "info": {
+    "seed": "835664f5d588cdff",
+    "results": 5,
+    "page": 1,
+    "version": "1.4"
+  }
+}
