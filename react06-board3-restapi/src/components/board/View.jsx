@@ -37,6 +37,7 @@ function View(props){
   </header>
   <nav>
     <Link to="/list">목록</Link>&nbsp;
+    {/* 수정 페이지로 진입시 일련번호가 필요하므로 링크를 수정한다. */}
     <Link to={"/edit/"+params.idx}>수정</Link>&nbsp;
     <Link to="/delete">삭제</Link>&nbsp;
   </nav>
@@ -62,7 +63,8 @@ function View(props){
         <tr>
           <th>내용</th>
           {/* 마크업이 적용된 상태로 출력된다. */}
-          <td dangerouslySetInnerHTML={{__html: boardData.content}}></td>
+          <td dangerouslySetInnerHTML={{__html: boardData.content}}
+          style={{'whiteSpace':'pre-wrap'}}></td>
 
           {/* HTML 태그가 그대로 출력된다. React는 보안적인 문제로
           태그를 화면에 그대로 출력하는 것이 디폴트 설정이다. */}
