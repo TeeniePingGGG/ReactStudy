@@ -1,43 +1,69 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from 'react';
+
+//Box 컴포넌트 정의. 프롭스로 받은 스타일을 div에 적용한다. 
+const Box = ({ createBoxStyle }) => {
+  //스테이트 생성 
+  const [style, setStyle] = useState({});
+  
+  //프롭스로 받은 createBoxStyle 함수가 변경될때마다 호출되도록 정의 
+  useEffect(() => {
+    console.log('박스 키우기');
+    //함수의 반환값으로 스테이트 변경 
+    setStyle(createBoxStyle());
+  }, 
+  [createBoxStyle]);
+  
+  //div 박스를 렌더링한다. 
+  return <div style={style}></div>
+}
 
 function App() {
-  //스테이트 생성 
-  const [countNumber, setCountNumber] = useState(0);
-  const [randomNumber, setRandomNumber] = useState(0);
+  //박스와 배경색 설정을 위한 스테이트 
+  const [size, setSize] = useState(100);
+  const [isDark, setIsDark] = useState(false);
 
-  /*
-  step1: 일반적인 화살표 함수 선언
-    스테이트 변경에 의해 App컴포넌트가 새롭게 렌더링되면 이 함수는
-    그때마다 새로운 참조값을 할당받게된다. 즉 참조값이 계속 바뀌므로
-    useEffect가 지속적으로 실행된다. JavaScript에서 함수는 객체이기
-    때문이다.
-  */
-  const somthingGood =()=>{
-    console.log(`somethingGood호출: ${countNumber}, ${randomNumber}`);
-    return;
-  }
+  //스타일 반환을 위한 함수 선언 
+  /**
+  Step1 : App 컴포넌트가 렌더링될때마다 새로운 참조값이 부여된다. 따라서
+    테마변경을 눌러도 이와 상관없는 '박스키우기'가 출력된다. 
+   */
+  // const createBoxStyle = () => {
+  //   return {
+  //     backgroundColor : 'pink',
+  //     width : `${size}px`,
+  //     height : `${size}px`,
+  //   };
+  // }
 
-  useEffect(()=>{
-    console.log('somethingGood() or randomGood() 변경됨');
-  },[somthingGood]);
-
-  return (<>
-  <div className="App">
-    <h2>useCallback()</h2>
-    {/* 스핀버튼을 누를때마다 스테이트가 변경되어 리렌더링된다.  */}
-    <input type="number" value={countNumber}
-    onChange={(e)=>setCountNumber(e.target.value)} />
-  </div>
-
-    {/* 버튼을 누를때마다 난수를 생성한 후 스테이트를 변경한다. */}
-    <button onClick={()=>{
-      setRandomNumber(Math.random());
-    }}>난수:${randomNumber}</button>
-    <br />
-    {/* 버튼을 누를때마다 함수를 호출한다.  */}
-    <button onClick={somthingGood}>somethingGood 호출</button>
-  </>);
+  /**
+  Step2 : useCallback을 함수에 적용한다. size가 변경될때만 새롭게 함수를
+    메모이제이션 하므로 애플리케이션의 성능이 향상된다. 
+   */
+  const createBoxStyle = useCallback(() => {
+    return {
+      backgroundColor : 'pink',
+      width : `${size}px`,
+      height : `${size}px`,
+    };
+  } , [size]);  
+  
+ 
+  return (
+    //div박스의 배경색이 isDark에 따라 black/white로 변경된다. 
+    <div className="App" style={{
+      background : isDark ? 'black' : 'white',
+    }}>
+      <h2>useCallback()</h2>
+      {/* 스핀버튼으로 증감시킨 값이 size를 변경하고, 새롭게 렌더링한다. */}
+      <input type='number' value={size} step={5}
+        onChange={(e) => setSize(e.target.value)}
+      />
+      {/* 버튼을 누를때마다 배경색이 변경된다.  */}
+      <button onClick={() => setIsDark(!isDark)}>테마변경</button>
+      {/* Style을 반환하는 함수를 프롭스로 전달한다.  */}
+      <Box createBoxStyle={createBoxStyle} />
+    </div>
+  );
 }
 
 export default App;
