@@ -3,17 +3,6 @@ import { initializeApp } from "firebase/app";
 //파이어스토어 데이터 베이스 사용을 위한 임포트     
 import { getFirestore } from "firebase/firestore";
 
-//.env 파일 생성 전
-//파이어베이스 콘솔에서 발급받은 API정보(SDK 정보)
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBjwAYicYH_a5j-HqBPtCmueV0LC4XuJPg",
-//   authDomain: "myreactapp-220c9.firebaseapp.com",
-//   projectId: "myreactapp-220c9",
-//   storageBucket: "myreactapp-220c9.firebasestorage.app",
-//   messagingSenderId: "723550894259",
-//   appId: "1:723550894259:web:903a07dc566cd5bb0ad8c6",
-//   measurementId: "G-MZRWKWRW00"
-// };
 
 //.env 파일 생성 후
 const firebaseConfig={
