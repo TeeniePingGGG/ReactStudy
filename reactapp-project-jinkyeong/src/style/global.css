@@ -1,0 +1,455 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+@font-face {
+  font-family: 'Ownglyph_ParkDaHyun';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 전체 폰트 스타일 */
+body {
+  font-family: "Ownglyph_ParkDaHyun", "Gowun Dodum", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* 회원가입 컨테이너 */
+.regist-container {
+  max-width: 650px; /* 컨테이너 너비 설정 (조정 가능) */
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #fff8fb;
+  border: 3px dashed #ffc8dd;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(255, 170, 200, 0.3);
+}
+
+/* 제목 */
+.regist-title {
+  text-align: center;
+  color: #ff5c8a;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.regist-form {
+  text-align: center;
+}
+
+/* 테이블 스타일 */
+.regist-table {
+  width: 100%; /* 테이블이 부모 컨테이너 너비를 꽉 채우도록 */
+  table-layout: fixed; /* 테이블 셀의 너비를 고정하여 내용이 넘치지 않도록 (중요!) */
+}
+
+.regist-table th {
+  text-align: left;
+  padding: 12px;
+  background-color: #fff0f5;
+  color: #ff69a3;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  width: 150px; /* th의 너비를 고정하여 td가 더 많은 공간을 갖도록 (중요!) */
+  white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 */
+}
+
+.regist-table td {
+  padding: 12px;
+  display: flex; /* Flexbox를 사용하여 input과 버튼 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  flex-wrap: nowrap; /* td 내부 요소들이 줄바꿈되지 않도록 (중요!) */
+  min-width: 0; /* flex item이 넘치는 것을 방지 */
+  /* 필요시 overflow: hidden; 또는 scroll; */
+}
+
+/* input 입력 필드 (기본 스타일) */
+.regist-table input {
+  flex-grow: 1; /* 남은 공간을 채우도록 설정 */
+  flex-shrink: 1; /* 필요하면 줄어들도록 설정 */
+  padding: 10px;
+  background: #fff0f5;
+  border: 2px solid #ffb6c1;
+  border-radius: 10px;
+  font-family: "Ownglyph_ParkDaHyun";
+  font-size: 1.2rem;
+  color: #444;
+  box-sizing: border-box; /* 패딩 포함 너비 계산 */
+  margin-right: 8px; /* 버튼이나 다음 요소와의 간격 */
+  min-width: 0; /* 내용이 넘치지 않도록 강제 (중요!) */
+}
+
+.regist-table input:focus {
+  outline: none;
+  border-color: #ff69b4;
+  background-color: #fff5fa;
+}
+
+/* 아이디 입력 필드 (중복확인 버튼과 함께) */
+.regist-input-id {
+  max-width: 250px; /* 고정값으로 설정하여 유연성 확보 */
+  margin-right: 8px; /* 버튼과의 간격 유지 */
+}
+
+/* 아이디 중복확인 버튼 */
+.regist-check-id-btn {
+  padding: 8px 12px;
+  background-color: #ffb6c1;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+  flex-shrink: 0; /* 버튼이 줄어들지 않도록 */
+}
+
+.regist-check-id-btn:hover {
+  background-color: #ff69b4;
+}
+
+/* 이메일 관련 요소들 */
+.regist-input-email-id1 { /* 첫 번째 이메일 아이디 필드 */
+  max-width: 120px; /* 이메일 아이디 부분 너비 제한 */
+  margin-right: 0; /* @와의 간격 없앰 */
+}
+
+.regist-email-at {
+  margin: 0 5px; /* @ 양쪽 간격 */
+  font-size: 1.2rem;
+  color: #ff69a3;
+  font-weight: bold;
+  flex-shrink: 0; /* @ 기호가 줄어들지 않도록 */
+}
+
+.regist-input-email-id2 { /* 두 번째 이메일 도메인 입력 필드 */
+  max-width: 120px; /* 고정 너비로 설정하여 select와의 공간 분배 */
+  margin-right: 8px; /* select와의 간격 */
+}
+
+.regist-select-email-domain { /* select 태그 스타일 */
+  flex-grow: 1; /* 남은 공간을 채우도록 */
+  flex-shrink: 1;
+  padding: 10px;
+  background: #fff0f5;
+  border: 2px solid #ffb6c1;
+  border-radius: 10px;
+  font-family: "Ownglyph_ParkDaHyun";
+  font-size: 1.2rem;
+  color: #444;
+  box-sizing: border-box;
+  min-width: 100px; /* 최소 너비 설정 (콘텐츠가 뭉개지지 않도록) */
+  max-width: 150px; /* 최대 너비 설정 (너무 길어지지 않도록) */
+}
+
+
+/* 우편번호 입력 필드 */
+.regist-input-zipcode {
+  max-width: 150px; /* 우편번호 입력 필드 너비 제한 */
+  margin-right: 8px; /* 버튼과의 간격 */
+}
+
+/* 우편번호 검색 버튼 */
+.regist-zipcode-btn {
+  padding: 8px 12px;
+  background-color: #ffb6c1;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.regist-zipcode-btn:hover {
+  background-color: #ff69b4;
+}
+
+/* ... (이전 CSS 코드는 그대로 유지) ... */
+
+/* 가입하기 버튼 셀 */
+.regist-btn-cell {
+  padding-top: 20px;
+  display: flex; /* Flexbox를 사용하여 내부 버튼 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 (가장 중요!) */
+  align-items: center; /* 세로 중앙 정렬 (선택 사항) */
+  min-width: 0; /* 혹시 모를 td의 최소 너비 문제 방지 */
+  border: 1px solid black;
+}
+
+/* 가입하기 버튼 */
+.regist-submit-btn {
+  padding: 14px 40px; /* 로그인 버튼처럼 좌우 패딩을 늘려서 너비를 조절합니다 */
+  font-size: 1.1rem;
+  background-color: #ff6b81;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(255, 107, 129, 0.4);
+  transition: background-color 0.3s ease;
+  /* display 속성 제거. flex item은 기본 동작을 따르도록! */
+}
+
+.regist-submit-btn:hover {
+  background-color: #ff4e73;
+}
+
+
+/* ... (Login.jsx 관련 CSS 등 나머지 CSS 코드는 그대로 유지) ... */
+/* Login.jsx 관련 CSS (변동 없음) */
+.login-container {
+  max-width: 750px;
+  margin: 5rem auto;
+  padding: 3rem;
+  background: #fff8fb;
+  border: 3px dashed #ffc8dd;
+  border-radius: 24px;
+  box-shadow: 0 6px 20px rgba(255, 170, 200, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.login-title {
+  text-align: center;
+  color: #ff5c8a;
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+}
+
+.login-table {
+  width: 100%;
+}
+
+.login-table th {
+  text-align: left;
+  padding: 14px;
+  background-color: #fff0f5;
+  color: #ff69a3;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  width: 120px;
+  white-space: nowrap;
+}
+
+.login-table td {
+  padding: 14px;
+}
+
+.login-table input {
+  width: 85%;
+  padding: 12px;
+  background: #fff0f5;
+  border: 2px solid #ffb6c1;
+  border-radius: 10px;
+  font-family: "Ownglyph_ParkDaHyun";
+  font-size: 1.25rem;
+  color: #444;
+}
+
+.login-table input:focus {
+  outline: none;
+  border-color: #ff69b4;
+  background-color: #fff5fa;
+}
+
+.login-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.login-submit-btn {
+  padding: 14px 40px;
+  font-size: 1.1rem;
+  background-color: #ff6b81;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(255, 107, 129, 0.4);
+  transition: background-color 0.3s ease;
+}
+
+.login-submit-btn:hover {
+  background-color: #ff4e73;
+}
+
+
+
+/*             TopNavi.jsx                                                        */
+
+nav { /* TopNavi 컴포넌트의 nav 태그에 직접 적용 */
+  background-color: #FFB6C1; /* 어두운 배경색 */
+  color: #f5f5f5; /* 기본 텍스트 색상 */
+  padding: 20px 40px; /* 상하 패딩 줄여서 슬림하게, 좌우는 메인 네비와 맞춤 */
+  text-align: right; /* 내부 링크들을 오른쪽으로 정렬 */
+  font-family: "Gowun Dodum", sans-serif; /* 글로벌 폰트 적용 */
+  font-size: 0.95rem; /* 작은 폰트 크기 */
+  border-bottom: 1px solid rgba(255, 200, 221, 0.2); /* 핑크 테마에 맞는 얇은 구분선 */
+}
+
+/* 각 NavLink 스타일 */
+nav a { /* nav 태그 내의 모든 <a> (NavLink)에 적용 */
+  color: #f5f5f5; /* 링크 기본 텍스트 색상 */
+  text-decoration: none; /* 밑줄 제거 */
+  transition: color 0.2s ease, text-shadow 0.2s ease; /* 호버 시 부드러운 전환 */
+  padding: 0 5px; /* &nbsp;와 함께 시각적 간격을 위해 좌우 패딩을 적절히 조절 */
+  position: relative; /* 활성화 밑줄 애니메이션을 위해 필요 */
+  font-weight: normal; /* 기본 글자 두께 */
+  white-space: nowrap; /* 링크가 줄바꿈되지 않도록 */
+}
+
+/* NavLink 호버 시 스타일 */
+nav a:hover {
+  color: #ffc8dd; /* 호버 시 핑크 계열 색상으로 변경 */
+  text-shadow: 0 0 3px rgba(255, 200, 221, 0.5); /* 은은한 텍스트 그림자 */
+}
+
+/* NavLink가 활성화(active) 되었을 때의 스타일 */
+nav a.active {
+  color: #ff69b4; /* 활성화된 링크 색상 강조 (더 진한 핑크) */
+  font-weight: bold; /* 활성화된 링크 굵게 */
+  text-shadow: 0 0 5px rgba(255, 105, 180, 0.7); /* 활성화된 링크 그림자 강조 */
+}
+
+/* 활성화된 NavLink 아래에 핑크색 밑줄 추가 */
+nav a.active::after {
+  content: '';
+  position: absolute;
+  width: calc(100% - 10px); /* 패딩 (좌 5px + 우 5px = 10px) 제외한 너비 */
+  height: 2px;
+  bottom: -3px; /* 텍스트 아래로 살짝 내림 */
+  left: 5px; /* 왼쪽 패딩만큼 시작 위치 조정 */
+  background-color: #ff69b4; /* 활성화 색상과 동일 */
+  border-radius: 1px; /* 밑줄 끝을 둥글게 */
+}
+
+
+/* --- 새로운 스타일: App.js의 메인 타이틀 --- */
+.main-title-area {
+  text-align: center; /* 중앙 정렬 */
+  padding: 30px 20px 20px 20px; /* 상하 패딩 */
+  background-color: #fcebeb; /* body와 비슷한 연한 핑크 배경 */
+}
+
+/* NavLink로 감싸진 h1에 대한 스타일 */
+.main-title-area a {
+    text-decoration: none !important; /* 여기를 !important로 강조하여 밑줄을 확실히 제거합니다. */
+    color: inherit; /* 부모 요소(h1)의 색상을 상속받도록 */
+    transition: transform 0.3s ease-in-out; /* 부드러운 확대/축소 효과 */
+    display: inline-block; /* transform 적용을 위해 */
+    /* 활성화 시 NavLink의 기본 active 클래스가 적용되지 않도록 할 수 있지만, h1 링크는 보통 active가 없음 */
+}
+
+.main-title-area a:hover {
+    transform: scale(1.03); /* 호버 시 살짝 확대 */
+    /* 호버 시에도 밑줄이 다시 생기지 않도록 여기서도 text-decoration: none;을 명시할 수 있습니다. */
+    text-decoration: none !important;
+}
+
+
+.main-title-area h1 {
+  font-family: "Ownglyph_ParkDaHyun", sans-serif;
+  color: #ff0055; /* 진한 핑크 */
+  font-size: 3.5rem; /* 큰 글씨 */
+  margin: 0; /* h1의 기본 마진 제거 */
+  text-shadow: 2px 2px 5px rgba(255, 105, 180, 0.5); /* 입체적인 그림자 */
+  cursor: pointer; /* 클릭 가능한 요소임을 표시 */
+}
+
+/* --- Home.jsx 이미지 리스트 스타일 --- */
+
+
+.menulist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 25px; /* 이미지들 사이의 간격을 15px에서 25px로 늘림 (더 넓게 보이게) */
+  padding: 30px;
+  margin: 40px auto;
+  max-width: 1750px; /* 컨테이너의 최대 너비를 1300px에서 1450px로 늘림 */
+  background-color: #fffaf0;
+  border: 2px dashed #ffb6c1;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(255, 192, 203, 0.5);
+}
+
+.menulist img {
+  width: 270px; /* 각 이미지의 너비를 240px에서 270px로 늘림 */
+  height: auto;
+  object-fit: cover;
+  border: 5px solid #ffccd5;
+  border-radius: 15px;
+  box-shadow: 0 8px 18px rgba(255, 105, 180, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menulist img:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(255, 105, 180, 0.5);
+}
+
+.home-title {
+  font-family: "Ownglyph_ParkDaHyun", "Gowun Dodum", sans-serif;
+  text-align: center;
+  color: #ff5c8a;
+  font-size: 3.5rem;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 5px rgba(255, 192, 203, 0.7);
+}
+
+
+
+/* --- 자동 롤링 배너 스타일 --- */
+
+.rolling-banner-container {
+  width: 100%; /* 부모 요소의 전체 너비를 차지 */
+  overflow: hidden; /* 텍스트가 컨테이너 밖으로 나갈 때 숨김 */
+  background-color: #ffeff2; /* 연한 핑크 배경 */
+  padding: 10px 0; /* 상하 패딩 */
+  box-shadow: 0 2px 8px rgba(255, 192, 203, 0.4); /* 그림자 효과 */
+  white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
+  margin-bottom: 30px; /* 아래 아이스크림 섹션과의 간격 */
+  position: relative; /* 자식 요소의 애니메이션 기준점 */
+}
+
+.rolling-text {
+  display: inline-block; /* 텍스트를 인라인 블록으로 만들어 가로로 늘어날 수 있게 함 */
+  font-family: "Gowun Dodum", sans-serif;
+  font-size: 1.3rem; /* 글씨 크기 */
+  color: #ff5c8a; /* 텍스트 색상 */
+  padding-left: 100%; /* 텍스트가 오른쪽에서 시작하여 왼쪽으로 사라지게 */
+  animation: scroll-left 20s linear infinite; /* 애니메이션 적용 */
+  /* 애니메이션 이름 / 시간 / 속도 곡선 / 반복 */
+}
+
+
+
+/* 롤링 애니메이션 정의 */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%); /* 시작 지점 (오른쪽 끝) */
+  }
+  100% {
+    transform: translateX(-100%); /* 끝 지점 (왼쪽 끝) */
+  }
+}
+
+@media (max-width: 768px) {
+  .rolling-banner-container {
+    padding: 8px 0;
+  }
+  .rolling-text {
+    font-size: 1rem; /* 모바일에서 글씨 크기 줄임 */
+    animation-duration: 15s; /* 모바일에서 더 빠르게 스크롤될 수도 있습니다. */
+  }
+}
