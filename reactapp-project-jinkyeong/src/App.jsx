@@ -19,7 +19,7 @@ function App() {
     <>
       <div className="main-title-area"> 
         <NavLink to="/">
-          <h1>아이스크림이 세상을 지배한다.</h1>
+          <h1>아이스크림이 세상을 지배한다람쥐.</h1>
         </NavLink>
       </div>
 
