@@ -112,6 +112,8 @@ function Regist() {
 
     // 모든 유효성 검사 통과 후 사용자 정보 객체 생성
     const fullPhoneNumber = `${phone1}-${phone2}-${phone3}`;
+    
+    
     const user = {
       id: id,
       password: password, 

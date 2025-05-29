@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
+import { getStorage } from "firebase/storage"; 
 
 const firebaseConfig={
   apiKey: import.meta.env.VITE_apikey,
@@ -14,4 +15,6 @@ const firebaseConfig={
 
 const app = initializeApp(firebaseConfig);
 const realtime = getDatabase(app);
-export {realtime};
+const storage = getStorage(app); 
+
+export {realtime, storage}; 

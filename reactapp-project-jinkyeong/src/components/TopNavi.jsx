@@ -8,6 +8,8 @@ function TopNavi(props) {
       <NavLink to="/regist">회원가입</NavLink>
       <NavLink to="/login">로그인</NavLink>
       <NavLink to="/chat">채팅</NavLink>
+      <NavLink to="/qna">Q&A</NavLink>
+      <NavLink to="/free">자유게시판</NavLink>
     </nav>
   );
 }

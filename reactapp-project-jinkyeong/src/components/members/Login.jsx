@@ -7,8 +7,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate(); // useNavigate 훅 사용
 
-  
-
   const handleSubmit = (e) => {
     e.preventDefault();
 

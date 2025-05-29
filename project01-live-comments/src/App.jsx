@@ -134,6 +134,8 @@ function App() {
     setEditTarget(target);
     setIsEditModalOpen(true);
   };
+
+  
   return (
     <div className="container mt-4">
       <BoardView />

@@ -453,3 +453,1139 @@ nav a.active::after {
     animation-duration: 15s; /* 모바일에서 더 빠르게 스크롤될 수도 있습니다. */
   }
 }
+
+
+
+/* ChatStart.jsx 페이지 스타일 */
+.chat-start-container {
+  max-width: 650px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #fff8fb;
+  border: 3px dashed #ffc8dd;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(255, 170, 200, 0.3);
+  text-align: center; /* 내부 요소들을 중앙 정렬 */
+}
+
+.chat-start-title {
+  text-align: center;
+  color: #ff5c8a;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.chat-start-form-group {
+  margin-bottom: 1rem; /* 각 입력 필드와 버튼 사이 간격 */
+}
+
+.chat-start-form-group label {
+  display: inline-block; /* 레이블과 입력 필드를 한 줄에 */
+  width: 80px; /* 레이블 너비 고정 */
+  text-align: right; /* 레이블 텍스트 오른쪽 정렬 */
+  margin-right: 15px; /* 레이블과 입력 필드 사이 간격 */
+  font-size: 1.25rem; /* 폰트 크기 */
+  color: #ff69a3; /* 폰트 색상 */
+  font-family: "Ownglyph_ParkDaHyun", "Gowun Dodum", sans-serif;
+  vertical-align: middle; /* 세로 중앙 정렬 */
+}
+
+.chat-start-form-group input[type="text"] {
+  padding: 10px;
+  background: #fff0f5;
+  border: 2px solid #ffb6c1;
+  border-radius: 10px;
+  font-family: "Ownglyph_ParkDaHyun";
+  font-size: 1.2rem;
+  color: #444;
+  box-sizing: border-box;
+  width: 250px; /* 입력 필드 너비 */
+  vertical-align: middle; /* 세로 중앙 정렬 */
+}
+
+.chat-start-form-group input[type="text"]:focus {
+  outline: none;
+  border-color: #ff69b4;
+  background-color: #fff5fa;
+}
+
+.chat-start-button {
+  padding: 14px 40px;
+  font-size: 1.1rem;
+  background-color: #ff6b81;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(255, 107, 129, 0.4);
+  transition: background-color 0.3s ease;
+  margin-top: 1.5rem; /* 버튼 위쪽 간격 */
+}
+
+.chat-start-button:hover {
+  background-color: #ff4e73;
+}
+
+
+
+/*----------------------------------------------------------
+  ChatMessage.jsx (채팅 메시지) Styles - 정렬 및 주석 추가
+  (다른 부분은 일체 수정하지 않았습니다.)
+----------------------------------------------------------*/
+
+.chat-container {
+  /* Box Model */
+  max-width: 500px;
+  height: calc(100vh - 40px); /* 뷰포트 높이에서 40px 제외 */
+  margin: 20px auto; /* 상하 20px, 좌우 자동 (가운데 정렬) */
+  padding: 20px;
+  /* Layout */
+  display: flex;
+  flex-direction: column; /* 자식 요소들을 세로로 쌓음 */
+  justify-content: space-between; /* 헤더, 정보, 채팅창, 입력폼 사이에 공간 분배 */
+  /* Visual */
+  background: #fff8fb;
+  border: 3px dashed #ffc8dd;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(255, 170, 200, 0.3);
+  /* Typography */
+  font-family: "Gowun Dodum", sans-serif;
+}
+
+.chat-header {
+  /* Typography */
+  text-align: center;
+  color: #ff5c8a;
+  font-size: 1.8rem;
+  font-family: "Ownglyph_ParkDaHyun", sans-serif;
+  /* Box Model */
+  margin-bottom: 1rem;
+}
+
+.chat-info {
+  /* Layout */
+  display: flex;
+  justify-content: space-between; /* 양 끝 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  /* Box Model */
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  /* Visual */
+  border-bottom: 1px solid #ffebee;
+  /* Typography */
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.chat-info span {
+  /* Typography */
+  font-weight: bold;
+  color: #ff8fab;
+}
+
+#closeBtn {
+  /* Box Model */
+  padding: 8px 15px;
+  /* Typography */
+  color: white;
+  font-size: 0.9rem;
+  /* Visual */
+  background-color: #ffb6c1;
+  border: none;
+  border-radius: 8px;
+  /* Misc */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#closeBtn:hover {
+  /* Visual */
+  background-color: #ff69b4;
+}
+
+/* Chat Message Display Area (채팅 메시지 표시 영역) */
+#chatWindow {
+  /* Layout */
+  display: flex;
+  flex-direction: column; /* 내부 메시지들을 세로로 쌓음 */
+  flex-grow: 1; /* 이 요소가 남은 모든 공간을 차지하여 높이를 유동적으로 확보합니다. */
+  /* Box Model */
+  padding: 15px;
+  margin-bottom: 15px; /* 아래 입력 폼과의 간격을 만듭니다. */
+  /* Visual */
+  border: 2px solid #ffccd5;
+  border-radius: 12px;
+  background-color: #fffafc;
+  overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤 활성화 */
+}
+
+/* Individual Message Bubble Styles (개별 메시지 버블 스타일) */
+#chatWindow > div {
+  /* Box Model */
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  max-width: 75%; /* 메시지 버블 최대 너비 */
+  flex-shrink: 0; /* 메시지 버블이 축소되지 않도록 함 */
+  /* Typography */
+  word-wrap: break-word; /* 긴 단어 자동 줄바꿈 */
+  color: #333;
+  line-height: 1.4;
+  /* Visual */
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* My Message (내 메시지 - 오른쪽 정렬) */
+.myMsg {
+  /* Layout */
+  align-self: flex-end; /* Flex 컨테이너 내에서 자신을 오른쪽 끝으로 정렬 */
+  margin-left: auto; /* 남은 공간을 왼쪽 마진으로 밀어내어 오른쪽 정렬 */
+  /* Typography */
+  text-align: right;
+  /* Visual */
+  background-color: #ffe0e9 !important; /* 내 메시지는 항상 이 색상으로 강제 */
+  box-shadow: 0 2px 4px rgba(255, 105, 180, 0.2);
+}
+
+/* Other User's Message (다른 사용자 메시지 - 왼쪽 정렬) */
+.otherMsg {
+  /* Layout */
+  align-self: flex-start; /* Flex 컨테이너 내에서 자신을 왼쪽 끝으로 정렬 */
+  margin-right: auto; /* 남은 공간을 오른쪽 마진으로 밀어내어 왼쪽 정렬 */
+  /* Typography */
+  text-align: left;
+  /* Visual */
+  background-color: #e0f2f7;
+  box-shadow: 0 2px 4px rgba(0, 150, 200, 0.1);
+}
+
+.otherMsg strong {
+  /* Layout */
+  display: block; /* 블록 요소로 만들어 줄바꿈 */
+  /* Box Model */
+  margin-bottom: 3px;
+  /* Typography */
+  color: #e237ba;
+  font-size: 0.9em;
+}
+
+/* Message Timestamp (메시지 타임스탬프) */
+.message-time {
+  /* Layout */
+  display: block;
+  /* Typography */
+  font-size: 0.75rem;
+  color: black;
+  /* Box Model */
+  margin-top: 5px;
+}
+
+.myMsg .message-time {
+  /* Typography */
+  text-align: right;
+}
+
+.otherMsg .message-time {
+  /* Typography */
+  text-align: left;
+}
+
+/* Chat Input Form (채팅 입력 폼) */
+.chat-input-form {
+  /* Layout */
+  display: flex; /* 가로 정렬 */
+  gap: 10px; /* 입력 필드와 버튼 사이 간격 */
+}
+
+.chat-input-form input[type="text"] {
+  /* Box Model */
+  flex-grow: 1; /* 남은 공간을 채우도록 */
+  padding: 12px;
+  box-sizing: border-box;
+  /* Typography */
+  font-family: "Gowun Dodum", sans-serif;
+  font-size: 1.1rem;
+  color: #444;
+  /* Visual */
+  background: #fff0f5;
+  border: 2px solid #ffb6c1;
+  border-radius: 10px;
+}
+
+.chat-input-form input[type="text"]:focus {
+  /* Visual */
+  outline: none;
+  border-color: #ff69b4;
+  background-color: #fff5fa;
+}
+
+.chat-input-form button[type="submit"] {
+  /* Box Model */
+  padding: 12px 25px;
+  flex-shrink: 0; /* 버튼이 줄어들지 않도록 */
+  /* Typography */
+  color: white;
+  font-weight: bold;
+  /* Visual */
+  background-color: #ff6b81;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(255, 107, 129, 0.4);
+  /* Misc */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chat-input-form button[type="submit"]:hover {
+  /* Visual */
+  background-color: #ff4e73;
+}
+
+/* Webkit Browser Scrollbar Styling (웹킷 브라우저 스크롤바 스타일링) */
+#chatWindow::-webkit-scrollbar {
+    /* Box Model */
+    width: 8px;
+}
+
+#chatWindow::-webkit-scrollbar-track {
+    /* Visual */
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+#chatWindow::-webkit-scrollbar-thumb {
+    /* Visual */
+    background: #ffc8dd;
+    border-radius: 10px;
+}
+
+#chatWindow::-webkit-scrollbar-thumb:hover {
+    /* Visual */
+    background: #ffabac;
+}
+
+
+
+/* 자유게시판 컨테이너 */
+.free-board-container {
+  max-width: 980px; /* 너비 조금 더 확장 */
+  margin: 4rem auto; /* 상하 여백 증가 */
+  padding: 3rem 4rem; /* 좌우 패딩 더 증가 */
+  background: linear-gradient(135deg, #fffafa 0%, #ffeef4 100%); /* 더 부드러운 그라데이션 */
+  border: 4px solid #ffdde9; /* 더 튼튼하고 부드러운 테두리 */
+  border-radius: 30px; /* 모서리 더 둥글게 */
+  box-shadow: 0 10px 30px rgba(255, 170, 200, 0.5); /* 그림자 더 깊고 화사하게 */
+  /* transition: all 0.4s ease-in-out; 애니메이션 제거 */
+}
+
+
+/* 게시판 열람 카드 */
+.board-view-card {
+  border: none;
+  border-radius: 20px; /* 더 둥근 모서리 */
+  box-shadow: 0 7px 20px rgba(255, 192, 203, 0.7); /* 그림자 더 뚜렷하고 따뜻하게 */
+  background-color: #fff5f8; /* 카드 배경색 살짝 변경 */
+  padding: 2rem; /* 카드 내부 패딩 증가 */
+  margin-bottom: 2.5rem; /* 아래 여백 추가 */
+  position: relative; /* 요소 배치 기준점 */
+  overflow: hidden; /* 넘치는 부분 숨김 */
+}
+
+
+/* 게시판 제목 */
+.board-view-title {
+  font-family: "Ownglyph_ParkDaHyun", sans-serif;
+  color: #e91e63; /* 강렬한 핫핑크 */
+  font-size: 3rem; /* 글씨 크기 더 증가 */
+  text-align: center;
+  margin-bottom: 0.8rem; /* 제목 아래 여백 증가 */
+  text-shadow: 3px 3px 8px rgba(233, 30, 99, 0.4); /* 그림자 더 선명하게 */
+  letter-spacing: 0.08em; /* 자간 더 넓게 */
+  position: relative;
+  z-index: 1; /* 다른 장식 위에 오도록 */
+}
+
+.board-view-title::after { /* 제목 아래에 미니 구분선 */
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, #ff80a0, #e91e63);
+  margin: 15px auto 0;
+  border-radius: 2px;
+}
+
+/* 댓글 작성 버튼 */
+.comment-write-btn {
+  background: linear-gradient(45deg, #ff6b81, #e91e63); /* 그라데이션 버튼 */
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 15px 35px; /* 패딩 더 증가 */
+  border-radius: 30px; /* 더 캡슐 모양 */
+  transition: all 0.4s ease; /* 버튼 애니메이션은 유지 */
+  display: block;
+  margin: 40px auto 50px auto; /* 중앙 정렬 및 위아래 간격 */
+  box-shadow: 0 7px 20px rgba(233, 30, 99, 0.4); /* 그림자 더 강조 */
+  letter-spacing: 0.08em;
+  font-size: 1.2rem;
+  text-transform: uppercase; /* 대문자로 변환 */
+  cursor: pointer;
+}
+
+.comment-write-btn:hover {
+  background: linear-gradient(45deg, #e91e63, #ff4e73); /* 호버 시 그라데이션 변화 */
+  transform: translateY(-5px) scale(1.02); /* 호버 시 살짝 위로 & 확대 */
+  box-shadow: 0 10px 25px rgba(233, 30, 99, 0.6); /* 그림자 더 진하게 */
+}
+.comment-write-btn:active {
+  transform: translateY(0); /* 클릭 시 원위치 */
+  box-shadow: 0 3px 10px rgba(233, 30, 99, 0.4);
+}
+
+/* 모달 제목 */
+.modal-title {
+  font-family: "Ownglyph_ParkDaHyun", sans-serif;
+  color: #e91e63;
+  font-size: 2.2rem; /* 글씨 크기 더 증가 */
+  text-shadow: 1px 1px 4px rgba(233, 30, 99, 0.3);
+}
+
+/* 모달 본문 라벨 */
+.modal-body .form-label {
+  font-family: "Gowun Dodum", sans-serif;
+  color: #ff69a3;
+  font-weight: bold;
+  font-size: 1.15rem; /* 라벨 글씨 크기 살짝 증가 */
+  margin-bottom: 0.5rem; /* 라벨 아래 여백 */
+}
+
+/* 모달 입력 필드 */
+.modal-body .form-control {
+  font-family: "Gowun Dodum", sans-serif;
+  border: 2px solid #ffc8dd; /* 테두리색 살짝 변경 */
+  border-radius: 15px; /* 더 둥근 모서리 */
+  padding: 12px 18px; /* 패딩 증가 */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* 포커스 시 전환 효과는 유지 */
+  background-color: #fffbfd; /* 배경색 더 밝게 */
+  color: #444;
+}
+
+.modal-body .form-control::placeholder {
+  color: #bbb; /* 플레이스홀더 색상 변경 */
+}
+
+.modal-body .form-control:focus {
+  border-color: #e91e63; /* 포커스 시 핫핑크 */
+  box-shadow: 0 0 0 0.3rem rgba(233, 30, 99, 0.3); /* 포커스 링 강조 */
+  background-color: #ffffff;
+}
+
+/* 모달 푸터 버튼 */
+.modal-footer .btn-secondary {
+  background-color: #bdbdbd; /* 회색 톤 조정 */
+  border: none;
+  color: white;
+  border-radius: 12px;
+  padding: 10px 25px;
+  transition: all 0.3s ease; /* 버튼 애니메이션은 유지 */
+  font-weight: bold;
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: #9e9e9e;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-footer .btn-primary {
+  background: linear-gradient(45deg, #ff6b81, #e91e63); /* 버튼과 동일한 그라데이션 */
+  border: none;
+  color: white;
+  border-radius: 12px;
+  padding: 10px 25px;
+  transition: all 0.3s ease; /* 버튼 애니메이션은 유지 */
+  font-weight: bold;
+}
+
+.modal-footer .btn-primary:hover {
+  background: linear-gradient(45deg, #e91e63, #ff4e73);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(233, 30, 99, 0.4);
+}
+
+/* 댓글 리스트 */
+.comment-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 30px; /* 댓글 리스트 위쪽 여백 */
+}
+
+.comment-list-item {
+  background-color: #ffffff;
+  border: 1px solid #ffe9f2;
+  border-radius: 20px; /* 더 둥근 모서리 */
+  margin-bottom: 25px; /* 항목별 간격 증가 */
+  padding: 25px 30px; /* 패딩 증가 */
+  box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4);
+  /* transition: transform 0.25s ease, box-shadow 0.25s ease; 애니메이션 제거 */
+  position: relative;
+}
+
+
+
+.comment-list-item::before { /* 각 댓글 상단에 작은 장식 */
+  content: '💬'; 
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  font-size: 1.5rem;
+  color: #ffb6c1;
+}
+
+/* 댓글 작성자 */
+.comment-writer {
+  color: #e91e63; /* 핫핑크 강조 */
+  font-family: "Ownglyph_ParkDaHyun", sans-serif;
+  font-size: 1.35rem; /* 글씨 크기 더 증가 */
+  margin-right: 12px;
+  text-shadow: 1px 1px 2px rgba(233, 30, 99, 0.1);
+}
+
+/* 댓글 작성일 */
+.comment-date {
+  color: #909090; /* 회색 톤 조정 */
+  font-size: 0.95rem; /* 글씨 크기 살짝 증가 */
+}
+
+/* 댓글 내용 */
+.comment-contents {
+  font-family: "Gowun Dodum", sans-serif;
+  color: #383838; /* 글씨색 더 진하게 */
+  font-size: 1.1rem; /* 글씨 크기 살짝 증가 */
+  line-height: 1.6; /* 줄 간격 */
+  margin-top: 20px; /* 위쪽 여백 증가 */
+  background-color: #fcfcfc;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px dashed #fcebeb; /* 점선 테두리 */
+}
+
+/* 댓글 액션 버튼 (좋아요, 수정, 삭제) */
+.comment-action-btn {
+  font-size: 0.9rem; /* 글씨 크기 살짝 증가 */
+  padding: 7px 14px; /* 패딩 증가 */
+  border-radius: 20px; /* 더 캡슐 모양 */
+  margin-left: 10px; /* 버튼 사이 간격 */
+  transition: all 0.3s ease; /* 버튼 애니메이션은 유지 */
+  font-weight: bold;
+  text-transform: capitalize; /* 첫 글자 대문자 */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.comment-action-btn.like-btn {
+  background-color: #f0fff0; /* 연한 초록 배경 */
+  color: #2e7d32; /* 진한 초록 */
+  border: 1px solid #a5d6a7; /* 연한 초록 테두리 */
+}
+.comment-action-btn.like-btn:hover {
+  background-color: #2e7d32;
+  color: white;
+  box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+  transform: translateY(-2px);
+}
+
+.comment-action-btn.edit-btn {
+  background-color: #fffde7; /* 연한 노랑 배경 */
+  color: #ff8f00; /* 진한 주황 */
+  border: 1px solid #ffe082; /* 연한 노랑 테두리 */
+}
+.comment-action-btn.edit-btn:hover {
+  background-color: #ff8f00;
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 143, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.comment-action-btn.delete-btn {
+  background-color: #ffebee; /* 연한 빨강 배경 */
+  color: #c62828; /* 진한 빨강 */
+  border: 1px solid #ef9a9a; /* 연한 빨강 테두리 */
+}
+.comment-action-btn.delete-btn:hover {
+  background-color: #c62828;
+  color: white;
+  box-shadow: 0 4px 10px rgba(198, 40, 40, 0.3);
+  transform: translateY(-2px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 자유게시판 컨테이너 */
+.free-board-container {
+    max-width: 980px; /* 너비 조금 더 확장 */
+    margin: 4rem auto; /* 상하 여백 증가 */
+    padding: 3rem 4rem; /* 좌우 패딩 더 증가 */
+    background: linear-gradient(135deg, #fffafa 0%, #ffeef4 100%); /* 더 부드러운 그라데이션 */
+    border: 4px solid #ffdde9; /* 더 튼튼하고 부드러운 테두리 */
+    border-radius: 30px; /* 모서리 더 둥글게 */
+    box-shadow: 0 10px 30px rgba(255, 170, 200, 0.5); /* 그림자 더 깊고 화사하게 */
+    /* transition: all 0.4s ease-in-out; 애니메이션 제거 */
+}
+
+/* 게시판 열람 카드 */
+.board-view-card {
+    border: none;
+    border-radius: 20px; /* 더 둥근 모서리 */
+    box-shadow: 0 7px 20px rgba(255, 192, 203, 0.7); /* 그림자 더 뚜렷하고 따뜻하게 */
+    background-color: #fff5f8; /* 카드 배경색 살짝 변경 */
+    padding: 2rem; /* 카드 내부 패딩 증가 */
+    margin-bottom: 2.5rem; /* 아래 여백 추가 */
+    position: relative; /* 요소 배치 기준점 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+}
+
+/* 게시판 제목 */
+.board-view-title {
+    font-family: "Ownglyph_ParkDaHyun", sans-serif;
+    color: #e91e63; /* 강렬한 핫핑크 */
+    font-size: 3rem; /* 글씨 크기 더 증가 */
+    text-align: center;
+    margin-bottom: 0.8rem; /* 제목 아래 여백 증가 */
+    text-shadow: 3px 3px 8px rgba(233, 30, 99, 0.4); /* 그림자 더 선명하게 */
+    letter-spacing: 0.08em; /* 자간 더 넓게 */
+    position: relative;
+    z-index: 1; /* 다른 장식 위에 오도록 */
+}
+
+.board-view-title::after { /* 제목 아래에 미니 구분선 */
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #ff80a0, #e91e63);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* 댓글 작성 버튼 */
+.comment-write-btn {
+    background: linear-gradient(45deg, #ff6b81, #e91e63); /* 그라데이션 버튼 */
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 15px 35px; /* 패딩 더 증가 */
+    border-radius: 30px; /* 더 캡슐 모양 */
+    transition: all 0.4s ease; /* 버튼 애니메이션은 유지 */
+    display: block;
+    margin: 40px auto 50px auto; /* 중앙 정렬 및 위아래 간격 */
+    box-shadow: 0 7px 20px rgba(233, 30, 99, 0.4); /* 그림자 더 강조 */
+    letter-spacing: 0.08em;
+    font-size: 1.2rem;
+    text-transform: uppercase; /* 대문자로 변환 */
+    cursor: pointer;
+}
+
+.comment-write-btn:hover {
+    background: linear-gradient(45deg, #e91e63, #ff4e73); /* 호버 시 그라데이션 변화 */
+    transform: translateY(-5px) scale(1.02); /* 호버 시 살짝 위로 & 확대 */
+    box-shadow: 0 10px 25px rgba(233, 30, 99, 0.6); /* 그림자 더 진하게 */
+}
+.comment-write-btn:active {
+    transform: translateY(0); /* 클릭 시 원위치 */
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.4);
+}
+
+/* 모달 제목 */
+.modal-title {
+    font-family: "Ownglyph_ParkDaHyun", sans-serif;
+    color: #e91e63;
+    font-size: 2.2rem; /* 글씨 크기 더 증가 */
+    text-shadow: 1px 1px 4px rgba(233, 30, 99, 0.3);
+}
+
+/* 모달 본문 라벨 */
+.modal-body .form-label {
+    font-family: "Gowun Dodum", sans-serif;
+    color: #ff69a3;
+    font-weight: bold;
+    font-size: 1.15rem; /* 라벨 글씨 크기 살짝 증가 */
+    margin-bottom: 0.5rem; /* 라벨 아래 여백 */
+}
+
+/* 모달 입력 필드 */
+.modal-body .form-control {
+    font-family: "Gownglyph_ParkDaHyun", "Gowun Dodum", sans-serif; /* 글씨체 추가 */
+    border: 2px solid #ffc8dd; /* 테두리색 살짝 변경 */
+    border-radius: 15px; /* 더 둥근 모서리 */
+    padding: 12px 18px; /* 패딩 증가 */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* 포커스 시 전환 효과는 유지 */
+    background-color: #fffbfd; /* 배경색 더 밝게 */
+    color: #444;
+}
+
+.modal-body .form-control::placeholder {
+    color: #bbb; /* 플레이스홀더 색상 변경 */
+}
+
+.modal-body .form-control:focus {
+    outline: none;
+    border-color: #e91e63; /* 포커스 시 핫핑크 */
+    box-shadow: 0 0 0 0.3rem rgba(233, 30, 99, 0.3); /* 포커스 링 강조 */
+    background-color: #ffffff;
+}
+
+/* 모달 푸터 버튼 */
+.modal-footer .btn-secondary {
+    background-color: #bdbdbd; /* 회색 톤 조정 */
+    border: none;
+    color: white;
+    border-radius: 12px;
+    padding: 10px 25px;
+    transition: all 0.3s ease; /* 버튼 애니메이션은 유지 */
+    font-weight: bold;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #9e9e9e;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-footer .btn-primary {
+    background: linear-gradient(45deg, #ff6b81, #e91e63); /* 버튼과 동일한 그라데이션 */
+    border: none;
+    color: white;
+    border-radius: 12px;
+    padding: 10px 25px;
+    transition: all 0.3s ease; /* 버튼 애니메이션은 유지 */
+    font-weight: bold;
+}
+
+.modal-footer .btn-primary:hover {
+    background: linear-gradient(45deg, #e91e63, #ff4e73);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(233, 30, 99, 0.4);
+}
+
+/* 댓글 리스트 */
+.comment-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 30px; /* 댓글 리스트 위쪽 여백 */
+}
+
+.comment-list-item {
+    background-color: #ffffff;
+    border: 1px solid #ffe9f2;
+    border-radius: 20px; /* 더 둥근 모서리 */
+    margin-bottom: 25px; /* 항목별 간격 증가 */
+    padding: 25px 30px; /* 패딩 증가 */
+    box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4);
+    /* transition: transform 0.25s ease, box-shadow 0.25s ease; 애니메이션 제거 */
+    position: relative;
+}
+
+.comment-list-item::before { /* 각 댓글 상단에 작은 장식 */
+    content: '💬';
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 1.5rem;
+    color: #ffb6c1;
+}
+
+/* 댓글 작성자 */
+.comment-writer {
+    color: #e91e63; /* 핫핑크 강조 */
+    font-family: "Ownglyph_ParkDaHyun", sans-serif;
+    font-size: 1.35rem; /* 글씨 크기 더 증가 */
+    margin-right: 12px;
+    text-shadow: 1px 1px 2px rgba(233, 30, 99, 0.1);
+}
+
+/* 댓글 작성일 */
+.comment-date {
+    color: #909090; /* 회색 톤 조정 */
+    font-size: 0.95rem; /* 글씨 크기 살짝 증가 */
+}
+
+/* 댓글 내용 */
+.comment-contents {
+    font-family: "Gowun Dodum", sans-serif;
+    color: #383838; /* 글씨색 더 진하게 */
+    font-size: 1.1rem; /* 글씨 크기 살짝 증가 */
+    line-height: 1.6; /* 줄 간격 */
+    margin-top: 20px; /* 위쪽 여백 증가 */
+    background-color: #fcfcfc;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px dashed #fcebeb; /* 점선 테두리 */
+}
+
+/* 댓글 액션 버튼 (좋아요, 수정, 삭제) */
+.comment-action-btn {
+    font-size: 0.9rem; /* 글씨 크기 살짝 증가 */
+    padding: 7px 14px; /* 패딩 증가 */
+    border-radius: 20px; /* 더 캡슐 모양 */
+    margin-left: 10px; /* 버튼 사이 간격 */
+    transition: all 0.3s ease; /* 버튼 애니메이션은 유지 */
+    font-weight: bold;
+    text-transform: capitalize; /* 첫 글자 대문자 */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.comment-action-btn.like-btn {
+    background-color: #f0fff0; /* 연한 초록 배경 */
+    color: #2e7d32; /* 진한 초록 */
+    border: 1px solid #a5d6a7; /* 연한 초록 테두리 */
+}
+.comment-action-btn.like-btn:hover {
+    background-color: #2e7d32;
+    color: white;
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+    transform: translateY(-2px);
+}
+
+.comment-action-btn.edit-btn {
+    background-color: #fffde7; /* 연한 노랑 배경 */
+    color: #ff8f00; /* 진한 주황 */
+    border: 1px solid #ffe082; /* 연한 노랑 테두리 */
+}
+.comment-action-btn.edit-btn:hover {
+    background-color: #ff8f00;
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 143, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.comment-action-btn.delete-btn {
+    background-color: #ffebee; /* 연한 빨강 배경 */
+    color: #c62828; /* 진한 빨강 */
+    border: 1px solid #ef9a9a; /* 연한 빨강 테두리 */
+}
+.comment-action-btn.delete-btn:hover {
+    background-color: #c62828;
+    color: white;
+    box-shadow: 0 4px 10px rgba(198, 40, 40, 0.3);
+    transform: translateY(-2px);
+}
+
+/* 페이징 버튼 */
+.comment-pagination .page-item .page-link {
+    font-family: "Gowun Dodum", sans-serif;
+    color: #e91e63; /* 핫핑크 글씨 */
+    border: 1px solid #ffc8dd; /* 연한 핑크 테두리 */
+    border-radius: 15px; /* 둥근 버튼 */
+    margin: 0 5px; /* 버튼 간 간격 */
+    padding: 10px 18px; /* 패딩 */
+    transition: all 0.3s ease;
+    background-color: #fffafc;
+}
+
+.comment-pagination .page-item .page-link:hover {
+    background-color: #ffeff2; /* 호버 시 연한 핑크 배경 */
+    color: #e91e63; /* 글씨색 유지 */
+    box-shadow: 0 3px 8px rgba(255, 192, 203, 0.5);
+    transform: translateY(-2px);
+}
+
+.comment-pagination .page-item.active .page-link {
+    background: linear-gradient(45deg, #ff6b81, #e91e63); /* 활성화 시 그라데이션 */
+    border-color: #e91e63;
+    color: white; /* 활성화 시 흰 글씨 */
+    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
+    transform: translateY(-1px);
+}
+
+.comment-pagination .page-item.active .page-link:hover {
+    background: linear-gradient(45deg, #e91e63, #ff4e73); /* 활성화 호버 시 그라데이션 변화 */
+    color: white;
+    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.6);
+}
+
+/* 게시판 목록 (List.jsx) - 테이블 스타일 */
+#boardTable {
+    width: 100%;
+    border-collapse: separate; /* border-spacing을 위해 필요 */
+    border-spacing: 0 10px; /* 행 사이 간격 (상하 10px) */
+    margin-top: 30px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4);
+    overflow: hidden; /* 둥근 모서리 적용을 위해 */
+}
+
+#boardTable thead {
+    background-color: #ffeff2; /* 헤더 배경색 */
+}
+
+#boardTable th {
+    padding: 15px 20px;
+    text-align: center;
+    color: #e91e63; /* 핫핑크 글씨 */
+    font-family: "Ownglyph_ParkDaHyun", sans-serif;
+    font-size: 1.25rem;
+    border-bottom: 2px solid #ffdde9; /* 헤더 아래 구분선 */
+}
+
+#boardTable tbody tr {
+    background-color: #fffbfd; /* 본문 행 배경색 */
+    transition: all 0.3s ease;
+    border-radius: 15px; /* 개별 행 둥근 모서리 */
+}
+
+#boardTable tbody tr:hover {
+    background-color: #ffeef4; /* 호버 시 배경색 변경 */
+    box-shadow: 0 3px 10px rgba(255, 192, 203, 0.6);
+    transform: translateY(-3px); /* 살짝 위로 */
+}
+
+#boardTable td {
+    padding: 15px 20px;
+    text-align: center;
+    color: #555;
+    font-family: "Gowun Dodum", sans-serif;
+    font-size: 1rem;
+    border-bottom: 1px solid #fcebeb; /* 행 사이 얇은 구분선 */
+}
+
+#boardTable td.cen { /* 가운데 정렬 셀 */
+    text-align: center;
+}
+
+#boardTable td a { /* 제목 링크 스타일 */
+    color: #e91e63; /* 핫핑크 링크 */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#boardTable td a:hover {
+    color: #ff4e73; /* 호버 시 색상 변경 */
+    text-decoration: underline; /* 호버 시 밑줄 */
+}
+
+/* TopNavi.jsx 스타일은 그대로 두고 */
+nav { /* TopNavi 컴포넌트의 nav 태그에 직접 적용 */
+  background-color: #FFB6C1; /* 이 부분은 TopNavi의 핑크색 띠입니다. 그대로 둡니다. */
+  color: #f5f5f5;
+  padding: 20px 40px;
+  text-align: right;
+  font-family: "Gowun Dodum", sans-serif;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(255, 200, 221, 0.2);
+}
+
+
+/* --- 새로 추가하거나 수정할 부분 --- */
+
+/* 게시판 목록 (List.jsx) - "글쓰기" 버튼 라인에 있는 핑크색 띠 제거 */
+.board-list-nav {
+    background-color: transparent; /* 배경색을 투명하게 만듭니다. */
+    border: none; /* 혹시 모를 테두리가 있다면 제거합니다. */
+    padding: 20px 0; /* 상하 패딩을 조절하여 버튼의 위아래 공간을 만듭니다. 
+                        원하시는 공간에 따라 값을 조절하세요. */
+    text-align: right; /* "글쓰기" 버튼을 오른쪽으로 정렬합니다. */
+    /* 필요하다면 margin-top이나 margin-bottom도 추가하여 위아래 간격을 조절하세요. */
+}
+
+/* "글쓰기" 버튼 자체의 스타일은 그대로 유지됩니다. */
+/* 만약 버튼이 배경색 제거 후 너무 위로 붙는다면, .write-btn에 margin-top을 추가하세요. */
+nav .write-btn {
+    /* 기존 스타일 유지 (글쓰기 버튼 자체의 디자인) */
+    background: linear-gradient(45deg, #ff6b81, #e91e63);
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin-top: 0; /* board-list-nav의 padding으로 인해 필요 없을 수 있습니다. */
+    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+    letter-spacing: 0.05em;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+nav .write-btn:hover {
+    background: linear-gradient(45deg, #e91e63, #ff4e73);
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(233, 30, 99, 0.5);
+}
+
+/* 게시판 제목 (List.jsx, View.jsx) */
+.board-page-header {
+    text-align: center;
+    color: #ff5c8a;
+    font-size: 2.5rem; /* 제목 크기 */
+    margin-bottom: 1.5rem;
+    font-family: "Ownglyph_ParkDaHyun", sans-serif;
+    text-shadow: 2px 2px 5px rgba(255, 170, 200, 0.3);
+}
+
+
+/* 게시판 읽기 (View.jsx) - 테이블 스타일 */
+.view-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    margin-top: 30px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4);
+    overflow: hidden;
+}
+
+.view-table th {
+    padding: 15px 20px;
+    text-align: left; /* 제목 테이블과 동일하게 왼쪽 정렬 */
+    color: #e91e63;
+    font-family: "Ownglyph_ParkDaHyun", sans-serif;
+    font-size: 1.2rem;
+    background-color: #ffeff2; /* 배경색 */
+    border-bottom: 1px solid #ffdde9;
+}
+
+.view-table td {
+    padding: 15px 20px;
+    color: #555;
+    font-family: "Gowun Dodum", sans-serif;
+    font-size: 1rem;
+    border-bottom: 1px solid #fcebeb;
+    background-color: #fffbfd;
+}
+
+.view-table tr:last-child td { /* 내용 셀에만 추가 스타일 */
+    min-height: 150px; /* 내용 셀 최소 높이 */
+    vertical-align: top; /* 텍스트 상단 정렬 */
+    line-height: 1.8;
+}
+
+/* 게시판 읽기 (View.jsx) - 네비게이션 버튼 */
+.view-nav-buttons {
+    display: flex; /* 버튼을 가로로 정렬 */
+    gap: 10px; /* 버튼 사이 간격 */
+    margin-top: 20px;
+    justify-content: center; /* 중앙 정렬 */
+}
+
+.view-nav-buttons a {
+    background: linear-gradient(45deg, #ffb6c1, #ff8fab); /* 연한 핑크 그라데이션 */
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-decoration: none; /* Link 태그의 기본 밑줄 제거 */
+    box-shadow: 0 3px 10px rgba(255, 170, 200, 0.3);
+    font-size: 0.95rem;
+}
+
+.view-nav-buttons a:hover {
+    background: linear-gradient(45deg, #ff8fab, #ff69b4); /* 호버 시 좀 더 진한 핑크 */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.5);
+}
+
+/* 게시판 작성 (Write.jsx) - 폼 스타일 */
+.write-form {
+    margin-top: 30px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4);
+    padding: 30px;
+}
+
+.write-form #boardTable { /* 작성 폼 테이블 재활용 */
+    border-spacing: 0; /* 간격 제거 */
+    box-shadow: none; /* 그림자 제거 */
+    border-radius: 0; /* 둥근 모서리 제거 */
+}
+
+.write-form #boardTable th {
+    padding: 15px 20px;
+    text-align: left;
+    background-color: #ffeff2;
+    color: #e91e63;
+    font-family: "Ownglyph_ParkDaHyun", sans-serif;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #ffdde9;
+    border-radius: 0; /* 기존 테이블 스타일에서 가져온 둥근 모서리 제거 */
+}
+
+.write-form #boardTable td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #fcebeb;
+    background-color: #fffbfd;
+}
+
+.write-form input[type="text"],
+.write-form textarea {
+    width: calc(100% - 20px); /* 패딩 고려 */
+    padding: 12px 10px;
+    border: 2px solid #ffc8dd;
+    border-radius: 12px;
+    font-family: "Gowun Dodum", sans-serif;
+    font-size: 1.05rem;
+    color: #444;
+    background-color: #fffbfd;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.write-form input[type="text"]:focus,
+.write-form textarea:focus {
+    outline: none;
+    border-color: #e91e63;
+    box-shadow: 0 0 0 0.3rem rgba(233, 30, 99, 0.3);
+    background-color: #ffffff;
+}
+
+.write-form textarea {
+    resize: vertical; /* 세로 크기 조절만 가능하도록 */
+    min-height: 120px;
+}
+
+.write-form input[type="submit"] {
+    background: linear-gradient(45deg, #ff6b81, #e91e63);
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 15px 40px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 30px auto 0; /* 중앙 정렬 */
+    box-shadow: 0 7px 20px rgba(233, 30, 99, 0.4);
+    letter-spacing: 0.08em;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.write-form input[type="submit"]:hover {
+    background: linear-gradient(45deg, #e91e63, #ff4e73);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(233, 30, 99, 0.6);
+}
+
+
+
+
+
