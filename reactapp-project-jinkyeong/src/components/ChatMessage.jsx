@@ -1,15 +1,17 @@
 import { child, onValue, push, ref, set } from "firebase/database";
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { realtime, storage } from "../realtimeConfig"; 
-import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage"; 
+import { realtime, storage } from "../realtimeConfig";
+import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 
+// 채팅창을 항상 하단으로 스크롤
 const scrollTop = (chatWindow) => {
   if (chatWindow) {
     chatWindow.scrollTop = chatWindow.scrollHeight;
   }
 };
 
+// 타임스탬프를 읽기 쉬운 형식으로 변환
 const formatTime = (timestamp) => {
   if (!timestamp) return ''; // timestamp가 없을 경우 빈 문자열 반환
   const date = new Date(timestamp);
@@ -36,16 +38,15 @@ function ChatMessage() {
   const [chatData, setChatData] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null); // 선택된 파일 상태
 
-  // 메시지 전송 함수
-  function messageWrite(chatRoom, chatId, chatMessage, imageUrl = null) { // imageUrl 파라미터 추가
-    const newPostRef = push(child(ref(realtime), chatRoom)); // 새로운 참조 생성
-    set(newPostRef, { // 생성된 참조에 데이터 설정
+  // 메시지 전송 함수 (텍스트 또는 이미지 URL 포함)
+  function messageWrite(chatRoom, chatId, chatMessage, imageUrl = null) {
+    const newPostRef = push(child(ref(realtime), chatRoom));
+    set(newPostRef, {
       id: chatId,
       message: chatMessage,
       timestamp: Date.now(),
-      imageUrl: imageUrl // 이미지 URL 추가
+      imageUrl: imageUrl // 이미지 URL
     });
-    console.log('입력성공');
   }
 
   // 이미지 파일 선택 핸들러
@@ -53,7 +54,7 @@ function ChatMessage() {
     if (e.target.files[0]) {
       setSelectedFile(e.target.files[0]);
     } else {
-      setSelectedFile(null); 
+      setSelectedFile(null);
     }
   };
 
@@ -76,10 +77,9 @@ function ChatMessage() {
       const fileRef = storageRef(storage, `images/${roomId}/${selectedFile.name}_${Date.now()}`);
       const snapshot = await uploadBytes(fileRef, selectedFile);
       const imageUrl = await getDownloadURL(snapshot.ref);
-      console.log('이미지 업로드 성공, URL:', imageUrl);
 
-      // 2. 이미지 URL과 함께 메시지 전송 
-      messageWrite(roomId, userId, "", imageUrl); // 메시지 내용은 빈 문자열, imageUrl 전달
+      // 2. 이미지 URL과 함께 메시지 전송 (메시지 내용은 빈 문자열)
+      messageWrite(roomId, userId, "", imageUrl);
 
       // 3. 상태 초기화
       setSelectedFile(null);
@@ -90,14 +90,12 @@ function ChatMessage() {
     }
   };
 
-
   const dbRef = ref(realtime, roomId);
 
   useEffect(() => {
     const unsubscribe = onValue(dbRef, (snapshot) => {
       const messages = [];
       snapshot.forEach((childSnapshot) => {
-
         // Firebase 키를 포함하여 메시지 객체 생성
         messages.push({
           key: childSnapshot.key,
@@ -110,8 +108,8 @@ function ChatMessage() {
       const showDiv = messages.map((childData) => {
         const timeString = childData.timestamp ? formatTime(childData.timestamp) : '';
 
-        // 메시지 내용이 이미지 URL인지 확인
-        const isImageMessage = childData.imageUrl && childData.message === ""; // 이미지 URL이 있고 메시지 내용이 비어있으면 이미지 메시지로 간주
+        // 메시지 내용이 이미지 URL인지 확인 (이미지 URL이 있고 메시지 내용이 비어있으면 이미지 메시지로 간주)
+        const isImageMessage = childData.imageUrl && childData.message === "";
 
         if (childData.id === userId) {
           return (
@@ -144,23 +142,18 @@ function ChatMessage() {
     return () => {
       unsubscribe();
     };
-  }, [roomId, dbRef, userId]); 
+  }, [roomId, dbRef, userId]);
 
+  // chatData 업데이트 시 스크롤 최하단으로 이동
   useEffect(() => {
     if (chatData.length > 0) {
       requestAnimationFrame(() => {
         if (chatWindowRef.current) {
-          // console.log("스크롤 시도: chatWindowRef.current.scrollHeight:", chatWindowRef.current.scrollHeight);
-          // console.log("스크롤 시도: chatWindowRef.current.clientHeight:", chatWindowRef.current.clientHeight);
           scrollTop(chatWindowRef.current);
-          // console.log("스크롤 완료: chatWindowRef.current.scrollTop:", chatWindowRef.current.scrollTop);
-        } else {
-          // console.log("chatWindowRef.current가 아직 null이어서 스크롤 불가");
         }
       });
     }
   }, [chatData]);
-
 
   return (
     <>
@@ -189,10 +182,9 @@ function ChatMessage() {
               alert('메시지를 입력하세요');
               return;
             }
-            console.log('submit', chatRoom, chatId, message);
-            messageWrite(chatRoom, chatId, message); // 텍스트 메시지 전송 (imageUrl은 기본값 null)
+            messageWrite(chatRoom, chatId, message); // 텍스트 메시지 전송
             e.target.message.value = '';
-          }} className="chat-input-form" style={{ marginBottom: '10px' }}> {/* 하단 여백 추가 */}
+          }} className="chat-input-form" style={{ marginBottom: '10px' }}>
             <input type="hidden" name="chatRoom" value={roomId} />
             <input type="hidden" name="chatId" value={userId} />
             <input type="text" name="message" placeholder="메시지를 입력하세요..." />
@@ -201,8 +193,8 @@ function ChatMessage() {
 
           {/* 이미지 전송 폼 */}
           <form onSubmit={handleImageSend} className="chat-input-form">
-            <input type="file" name="imageUpload" accept="image/" onChange={handleFileChange} />
-            <button type="submit" disabled={!selectedFile}>이미지 전송</button> 
+            <input type="file" name="imageUpload" accept="image/*" onChange={handleFileChange} />
+            <button type="submit" disabled={!selectedFile}>이미지 전송</button>
           </form>
         </div>
       </div>

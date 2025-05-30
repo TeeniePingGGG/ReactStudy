@@ -6,6 +6,14 @@
   font-weight: normal;
   font-style: normal;
 }
+.edit-page-header { 
+    text-align: center;
+    color: #ff5c8a; /* 이제 이 색상이 적용될 것입니다! */
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-family: "Ownglyph_ParkDaHyun", sans-serif;
+    text-shadow: 2px 2px 5px rgba(255, 170, 200, 0.3);
+}
 
 /* 전체 폰트 스타일 */
 body {
@@ -1536,8 +1544,11 @@ nav .write-btn:hover {
     background-color: #fffbfd;
 }
 
+/* 게시판 작성 (Write.jsx) 및 수정 (Edit.jsx) - 폼 입력 필드 스타일 */
 .write-form input[type="text"],
-.write-form textarea {
+.write-form textarea,
+.edit-form-article input[type="text"], /* ⭐ 이 부분 추가 ⭐ */
+.edit-form-article textarea { /* ⭐ 이 부분 추가 ⭐ */
     width: calc(100% - 20px); /* 패딩 고려 */
     padding: 12px 10px;
     border: 2px solid #ffc8dd;
@@ -1549,12 +1560,30 @@ nav .write-btn:hover {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* 포커스 시 스타일 */
 .write-form input[type="text"]:focus,
-.write-form textarea:focus {
+.write-form textarea:focus,
+.edit-form-article input[type="text"]:focus, /* ⭐ 이 부분 추가 ⭐ */
+.edit-form-article textarea:focus { /* ⭐ 이 부분 추가 ⭐ */
     outline: none;
     border-color: #e91e63;
     box-shadow: 0 0 0 0.3rem rgba(233, 30, 99, 0.3);
     background-color: #ffffff;
+}
+
+/* textarea 전용 스타일 (Write.jsx와 Edit.jsx 모두 적용) */
+.write-form textarea,
+.edit-form-article textarea { /* ⭐ 이 부분 추가 ⭐ */
+    resize: vertical; /* 세로 크기 조절만 가능하도록 */
+    min-height: 120px;
+}
+
+/* 테이블 셀에 대한 border-bottom도 write-form과 edit-form-article 둘 다 적용되도록 수정 */
+.write-form #boardTable td,
+.edit-form-article #boardTable td { /* ⭐ 이 부분 추가 ⭐ */
+    padding: 15px 20px;
+    border-bottom: 1px solid #fcebeb;
+    background-color: #fffbfd;
 }
 
 .write-form textarea {
@@ -1587,5 +1616,295 @@ nav .write-btn:hover {
 
 
 
+/* 게시판 수정 (Edit.jsx) */
+---
 
 
+---
+.edit-nav-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.edit-nav-buttons a {
+    background: linear-gradient(45deg, #ffb6c1, #ff8fab); /* 연한 핑크 그라데이션 */
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(255, 170, 200, 0.3);
+    font-size: 0.95rem;
+}
+
+.edit-nav-buttons a:hover {
+    background: linear-gradient(45deg, #ff8fab, #ff69b4); /* 호버 시 좀 더 진한 핑크 */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.5);
+}
+
+---
+.edit-form-article .board-table { /* 폼을 감싸는 article에 클래스 추가 */
+    margin-top: 30px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4);
+    padding: 30px;
+}
+
+
+/* 수정 완료 버튼 스타일 */
+.edit-form-article input[type="submit"] {
+    background: linear-gradient(45deg, #ff6b81, #e91e63);
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 15px 40px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 30px auto 0;
+    box-shadow: 0 7px 20px rgba(233, 30, 99, 0.4);
+    letter-spacing: 0.08em;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.edit-form-article input[type="submit"]:hover {
+    background: linear-gradient(45deg, #e91e63, #ff4e73);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(233, 30, 99, 0.6);
+}
+
+
+
+/* src/style/global.css 에 추가 */
+
+/* -------------------------------------------------- */
+/* 로그인 후 TopNavi 내부에 추가되는 요소들의 스타일 */
+/* -------------------------------------------------- */
+
+/* 로그인 후 "XXX님" 텍스트 스타일 */
+.top-navi-wrapper .user-greeting {
+    /*
+     * Flex 컨테이너인 .top-navi-wrapper 내에서
+     * 이 요소를 왼쪽 끝으로 밀어내고, 나머지 NavLink들은 오른쪽에 유지합니다.
+     */
+    margin-left: auto; 
+    
+    font-weight: bold;
+    color: #f5f5f5; /* 흰색 텍스트로 배경(핑크)과 대비를 줍니다. */
+    padding: 5px 10px;
+    background-color: rgba(255, 255, 255, 0.2); /* 약간 투명한 흰색 배경으로 가독성을 높입니다. */
+    border-radius: 8px; /* 둥근 모서리 */
+    font-size: 1rem; /* 적당한 폰트 크기 */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* 은은한 그림자 효과로 입체감을 줍니다. */
+    white-space: nowrap; /* 사용자 이름이 길어져도 줄바꿈되지 않도록 합니다. */
+    margin-right: 15px; /* 로그아웃 버튼과의 간격을 줍니다. (기존 NavLink의 gap과 유사하게) */
+}
+
+/* 로그아웃 버튼 스타일 */
+.top-navi-wrapper .logout-btn {
+    background-color: #e6005c; /* 눈에 띄는 진한 핑크색 버튼 배경 */
+    color: white; /* 흰색 텍스트 */
+    border: none; /* 테두리 없음 */
+    padding: 8px 15px; /* 버튼 내부 패딩 */
+    border-radius: 10px; /* 둥근 모서리 */
+    cursor: pointer; /* 마우스 오버 시 포인터 변경 */
+    font-size: 0.95rem; /* 폰트 크기 */
+    font-family: "Gowun Dodum", sans-serif; /* Gowun Dodum 폰트 적용 */
+    font-weight: bold; /* 글자 굵게 */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* 호버 시 부드러운 전환 효과 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 버튼 아래 은은한 그림자 */
+}
+
+/* 로그아웃 버튼 호버 시 스타일 */
+.top-navi-wrapper .logout-btn:hover {
+    background-color: #bf004c; /* 호버 시 더 진한 핑크색으로 변경 */
+    transform: translateY(-2px); /* 버튼이 살짝 위로 올라가는 효과 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
+}
+
+
+
+/* NavLink에 직접 적용되는 "XXX님" 링크 스타일 */
+.top-navi-wrapper .user-greeting {
+    margin-left: auto; /* 중요한 속성: 이 요소를 가장 왼쪽으로 밀어냅니다. */
+    
+    font-weight: bold;
+    color: #f5f5f5; /* 흰색 텍스트로 배경(핑크)과 대비를 줍니다. */
+    padding: 5px 10px;
+    background-color: rgba(255, 255, 255, 0.2); /* 약간 투명한 흰색 배경으로 가독성을 높입니다. */
+    border-radius: 8px; /* 둥근 모서리 */
+    font-size: 1rem; /* 적당한 폰트 크기 */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* 은은한 그림자 효과로 입체감을 줍니다. */
+    white-space: nowrap; /* 사용자 이름이 길어져도 줄바꿈되지 않도록 합니다. */
+    /* margin-right는 logout-btn이 auto-align되면서 알아서 간격이 생기므로 여기서는 필요 없을 수 있습니다. */
+    /* 만약 user-greeting과 logout-btn 사이에 추가적인 간격이 필요하다면 gap: 15px;를 top-navi-wrapper에 활용하거나, logout-btn에 margin-left를 줄 수 있습니다. */
+
+    /* NavLink이므로 링크 관련 스타일도 추가 */
+    text-decoration: none; /* 기본 밑줄 제거 */
+    transition: color 0.2s ease, text-shadow 0.2s ease, background-color 0.2s ease; /* 호버 효과 추가 */
+}
+
+.top-navi-wrapper .user-greeting:hover {
+    color: #ffc8dd; /* 호버 시 텍스트 색상 변경 */
+    background-color: rgba(255, 255, 255, 0.3); /* 호버 시 배경색 변경 */
+    text-shadow: 0 0 7px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 강화 */
+}
+
+/* 로그아웃 버튼 스타일 */
+.top-navi-wrapper .logout-btn {
+    background-color: #e6005c; /* 눈에 띄는 진한 핑크색 버튼 배경 */
+    color: white; /* 흰색 텍스트 */
+    border: none; /* 테두리 없음 */
+    padding: 8px 15px; /* 버튼 내부 패딩 */
+    border-radius: 10px; /* 둥근 모서리 */
+    cursor: pointer; /* 마우스 오버 시 포인터 변경 */
+    font-size: 0.95rem; /* 폰트 크기 */
+    font-family: "Gowun Dodum", sans-serif; /* Gowun Dodum 폰트 적용 */
+    font-weight: bold; /* 글자 굵게 */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* 호버 시 부드러운 전환 효과 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 버튼 아래 은은한 그림자 */
+}
+
+/* 로그아웃 버튼 호버 시 스타일 */
+.top-navi-wrapper .logout-btn:hover {
+    background-color: #bf004c; /* 호버 시 더 진한 핑크색으로 변경 */
+    transform: translateY(-2px); /* 버튼이 살짝 위로 올라가는 효과 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
+}
+
+
+
+
+
+/* -------------------------------------------------- */
+/* Info.jsx (회원정보 페이지) 스타일 */
+/* -------------------------------------------------- */
+
+.info-container {
+    max-width: 650px; /* 회원가입 컨테이너와 유사하게 너비 설정 */
+    margin: 3rem auto; /* 상하 여백, 좌우 자동 (가운데 정렬) */
+    padding: 2rem; /* 내부 패딩 */
+    background: #fff8fb; /* 연한 핑크 배경색 */
+    border: 3px dashed #ffc8dd; /* 핑크색 점선 테두리 */
+    border-radius: 20px; /* 둥근 모서리 */
+    box-shadow: 0 4px 16px rgba(255, 170, 200, 0.3); /* 은은한 그림자 */
+    text-align: center; /* 내부 콘텐츠 (주로 테이블)를 중앙 정렬하기 위해 */
+}
+
+.info-title {
+    text-align: center; /* 제목 텍스트 중앙 정렬 */
+    color: #ff5c8a; /* 진한 핑크색 제목 */
+    font-size: 2rem; /* 제목 글자 크기 */
+    margin-bottom: 1.5rem; /* 제목 아래 여백 */
+    font-family: "Ownglyph_ParkDaHyun", sans-serif; /* 커스텀 폰트 적용 */
+}
+
+.info-table {
+    width: 100%; /* 테이블 너비를 부모 컨테이너에 맞춤 */
+    margin: 0 auto; /* 테이블 자체를 컨테이너 내에서 중앙 정렬 */
+    border-collapse: separate; /* border-radius 적용을 위해 셀 테두리 병합 해제 */
+    border-spacing: 0; /* 셀 간 기본 간격 제거 */
+}
+
+.info-table th,
+.info-table td {
+    padding: 12px; /* 셀 내부 패딩 */
+    font-size: 1.15rem; /* 텍스트 크기 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    /* 수직 정렬 기본값은 middle (자동으로 중앙 정렬됨) */
+}
+
+.info-table th {
+    width: 150px; /* 제목 셀 (예: 아이디, 이름)의 너비 고정 */
+    background-color: #fff0f5; /* 옅은 핑크 배경색 */
+    color: #ff69a3; /* 핑크 텍스트 색상 */
+    font-weight: bold; /* 글자 굵게 */
+    border-right: 1px solid #ffe7ee; /* 제목 셀과 데이터 셀 사이 구분선 */
+    white-space: nowrap; /* 제목이 줄바꿈되지 않도록 */
+}
+
+.info-table td {
+    background-color: #ffffff; /* 흰색 배경색 */
+    color: #333; /* 어두운 회색 텍스트 색상 */
+    border-left: 1px solid #ffe7ee; /* 데이터 셀과 제목 셀 사이 구분선 */
+}
+
+/* 테이블의 첫 번째 및 마지막 행의 테두리 모서리를 둥글게 처리 */
+/* (border-collapse: separate; 일 때만 적용 가능) */
+.info-table tr:first-child th:first-child {
+    border-top-left-radius: 12px;
+}
+.info-table tr:first-child td:last-child {
+    border-top-right-radius: 12px;
+}
+.info-table tr:last-child th:first-child {
+    border-bottom-left-radius: 12px;
+}
+.info-table tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+}
+
+/* -------------------------------------------------- */
+/* Info.jsx (회원정보 페이지) 스타일 - 버튼 추가 */
+/* -------------------------------------------------- */
+
+/* Info.jsx 컨테이너, 제목, 테이블 등 기존 스타일은 그대로 유지 */
+
+/* 푸터 셀 스타일 */
+.info-table tfoot .info-footer-cell {
+    padding-top: 25px; /* 버튼 위에 충분한 간격 주기 */
+    text-align: center; /* 버튼을 중앙 정렬 */
+    background-color: transparent; /* 푸터 셀 배경 투명하게 (선택 사항) */
+    border-top: none; /* 위쪽 테두리 제거 (선택 사항) */
+    /* 테이블 모서리 둥글게 할 때 하단 모서리도 둥글게 해줍니다. */
+    border-bottom-left-radius: 20px; /* 컨테이너와 일치하도록 */
+    border-bottom-right-radius: 20px; /* 컨테이너와 일치하도록 */
+}
+
+
+/* 기존 .regist-submit-btn 및 .info-edit-btn 스타일은 그대로 유지 */
+.regist-submit-btn {
+    /* 기존 스타일 */
+}
+
+.info-edit-btn {
+    padding: 12px 30px; /* 버튼 내부 패딩 */
+    font-size: 1.1rem; /* 글자 크기 */
+    background-color: #ff69b4; /* 진한 핑크색 배경 */
+    color: white; /* 흰색 텍스트 */
+    border: none; /* 테두리 없음 */
+    border-radius: 12px; /* 둥근 모서리 */
+    font-weight: bold; /* 글자 굵게 */
+    cursor: pointer; /* 마우스 오버 시 포인터 변경 */
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4); /* 은은한 그림자 */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* 호버 시 부드러운 전환 */
+}
+
+.info-edit-btn:hover {
+    background-color: #ff4e73; /* 호버 시 더 진한 핑크 */
+    transform: translateY(-2px); /* 살짝 올라가는 효과 */
+    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.5); /* 그림자 강화 */
+}
+
+/* 버튼을 가운데 정렬하기 위한 새로운 스타일 */
+.button-container {
+    text-align: center; /* 이 부분을 추가하여 내부 요소를 가운데 정렬 */
+    margin-top: 30px; /* 테이블과 버튼 사이에 간격 추가 */
+    margin-bottom: 20px; /* 아래쪽에도 간격 추가 */
+}
+
+/* 테이블 하단 모서리 라운딩 (이제 필요 없을 수 있지만, 혹시 다른 용도로 있다면 유지) */
+/* .regist-table tfoot tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+.regist-table tfoot tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+} */

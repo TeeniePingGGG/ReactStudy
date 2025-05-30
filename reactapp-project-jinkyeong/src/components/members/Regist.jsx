@@ -28,7 +28,7 @@ function Regist() {
   // useRef 훅을 사용하여 DOM 요소에 접근할 참조 생성
   const phone2Ref = useRef(null);
   const phone3Ref = useRef(null);
-  const zipcodeBtnRef = useRef(null); // 우편번호 검색 버튼 참조
+  const zipcodeBtnRef = useRef(null); 
 
   // 아이디 중복 확인
   const handleIdCheck = () => {
