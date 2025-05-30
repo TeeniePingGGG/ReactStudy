@@ -3,8 +3,6 @@ import { useRef } from "react";
 const ChatStart = () => {
   const refRoom = useRef();
   const refId = useRef();
-
-  // 채팅방 새 창 열기 함수
   const openChatWin = () => {
     window.open(
       `/chat/talk?roomId=${refRoom.current.value}&userId=${refId.current.value}`,

@@ -10,7 +10,6 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_appId,
 };
 
-// 이미 초기화된 Firebase 앱이 없으면 초기화, 있으면 기존 앱 사용
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 export const firestore = getFirestore(app);
