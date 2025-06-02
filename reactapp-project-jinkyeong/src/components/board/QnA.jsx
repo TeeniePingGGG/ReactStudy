@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-// Firebase Firestore 관련 임포트
 import { collection, onSnapshot, query, orderBy, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { firestore } from '../../firestoreConfig'; // firestore 객체 임포트
+import { firestore } from '../../firestoreConfig'; 
 
-// 기존 nowDate 함수 (날짜 형식 유지)
 const nowDate = () => {
     let dateObj = new Date();
     var year = dateObj.getFullYear();
@@ -20,7 +18,35 @@ const nowDate = () => {
     return `${year}년 ${month}월 ${day}일 ${ampm} ${hours}:${formattedMinutes}`;
 };
 
-// --- BoardView 컴포넌트 (변화 없음) ---
+//게시물 날짜를 화면에 표시하기 적절한 형식으로 변환하는 함수(오늘 날짜는 시간까지, 아니면 년 월 일만 표시)
+const formatDisplayDate = (postDateString) => {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth() + 1;
+    const currentDay = today.getDate();
+
+    if (!postDateString || typeof postDateString !== 'string') {
+        console.warn("formatDisplayDate: Invalid postDateString provided:", postDateString);
+        return "";
+    }
+
+    //년 월 일 정보 추출(정규식 사용)
+    const yearMatch = postDateString.match(/(\d{4})년/);
+    const monthMatch = postDateString.match(/(\d{2})월/);
+    const dayMatch = postDateString.match(/(\d{2})일/);
+
+    const postYear = parseInt(yearMatch[1], 10);
+    const postMonth = parseInt(monthMatch[1], 10);
+    const postDay = parseInt(dayMatch[1], 10);
+
+    if (postYear === currentYear && postMonth === currentMonth && postDay === currentDay) {
+        return postDateString;
+    } else {
+        return `${postYear}년 ${monthMatch[0]} ${dayMatch[0]}`;
+    }
+};
+
+
 function BoardView() {
     return (
         <>
@@ -33,7 +59,6 @@ function BoardView() {
     );
 }
 
-// --- CommentBtn 컴포넌트 (변화 없음) ---
 const CommentBtn = (props) => {
     return (
         <>
@@ -49,7 +74,7 @@ const CommentBtn = (props) => {
     );
 };
 
-// --- ModalWindow 컴포넌트 (변화 없음, 내부 로직은 QnA 컴포넌트에서 처리) ---
+//질문 작성 및 수정 모달 컴포넌트
 function ModalWindow(props) {
     return (
         <>
@@ -93,13 +118,13 @@ function ModalWindow(props) {
     );
 }
 
-// --- CommentList 컴포넌트 (idx 대신 id 사용) ---
+//질문 목록을 렌더링하는 컴포넌트
 function CommentList(props) {
-    // 날짜 형식을 변경하는 헬퍼 함수
+    //Firestore에서 가져온 문자열을 날짜 형식에 맞게 변환해주는 함수
     const formatDateTime = (postDateString) => {
         if (!postDateString || typeof postDateString !== 'string') return '';
 
-        // nowDate 함수에서 반환하는 "YYYY년 MM월 DD일 오전/오후 HH:MM" 형태 파싱
+        //파싱
         const dateMatch = postDateString.match(/(\d{4})년 (\d{2})월 (\d{2})일 (오전|오후) (\d{1,2}):(\d{2})/);
         
         if (dateMatch) {
@@ -113,14 +138,14 @@ function CommentList(props) {
             if (ampm === '오후' && hours !== 12) {
                 hours += 12;
             } else if (ampm === '오전' && hours === 12) {
-                hours = 0; // 자정 12시는 0시로
+                hours = 0; 
             }
             return `${year}-${month}-${day} ${String(hours).padStart(2, '0')}:${minutes}`;
         }
-        // Fallback for ISOString or other formats if they somehow get there
+
         try {
             const date = new Date(postDateString);
-            if (!isNaN(date.getTime())) { // 유효한 Date 객체인지 확인
+            if (!isNaN(date.getTime())) { 
                 const year = date.getFullYear();
                 const month = String(date.getMonth() + 1).padStart(2, '0');
                 const day = String(date.getDate()).padStart(2, '0');
@@ -131,28 +156,29 @@ function CommentList(props) {
         } catch (e) {
             console.error("Failed to parse date string:", postDateString, e);
         }
-        return postDateString; // 파싱 실패 시 원본 반환
+        return postDateString;  // 파싱 실패시 원본 문자열 반환
     };
 
-    // 현재 페이지에 해당하는 댓글만 필터링
+    //현재 페이지에 표시할 질문의 시작 인덱스 계산                                              
     const startIndex = (props.currentPage - 1) * props.commentsPerPage;
+    //현재 페이지에 표시할 질문들의 끝 인덱스 계산      
     const endIndex = startIndex + props.commentsPerPage;
+    //전체 질문 데이터에서 현재 페이지에 해당하는 질문들만 추출
     const currentComments = props.boardData.slice(startIndex, endIndex);
 
     return (
         <>
-            {currentComments.map((row) => { // 필터링된 댓글만 맵핑
+            {/* 현재 페이지의 질문들을 매핑하여 렌더링 */}
+            {currentComments.map((row) => { 
                 return (
-                    // row.idx 대신 row.id를 key로 사용
                     <ul className="list-group mt-3 comment-list" key={row.id}> 
                         <li className="list-group-item comment-list-item">
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <strong className="comment-writer">{row.writer}</strong>{" "}
-                                    <small className="ms-2 comment-date">{formatDateTime(row.postdate)}</small>
+                                    <small className="ms-2 comment-date">{props.formatDisplayDate(row.postdate)}</small>
                                 </div>
                                 <div>
-                                    {/* idx 대신 id 사용 */}
                                     <button className="btn btn-outline-success btn-sm comment-action-btn like-btn" onClick={() => props.likePlus(row.id)}>
                                         좋아요 ({row.likes})
                                     </button>&nbsp;
@@ -175,10 +201,10 @@ function CommentList(props) {
     );
 }
 
-// 페이징 컴포넌트 (변화 없음)
 function Pagination({ commentsPerPage, totalComments, paginate, currentPage }) {
     const pageNumbers = [];
-
+    
+    //전체 질문 수와 페이지당 질문 수를 기반으로 총 페이지 번호 계산
     for (let i = 1; i <= Math.ceil(totalComments / commentsPerPage); i++) {
         pageNumbers.push(i);
     }
@@ -186,6 +212,7 @@ function Pagination({ commentsPerPage, totalComments, paginate, currentPage }) {
     return (
         <nav className="d-flex justify-content-center mt-5">
             <ul className="pagination comment-pagination">
+                {/* 각 페이지 번호 렌더링 */}
                 {pageNumbers.map(number => (
                     <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
                         <a onClick={() => paginate(number)} href="#!" className="page-link">
@@ -198,54 +225,37 @@ function Pagination({ commentsPerPage, totalComments, paginate, currentPage }) {
     );
 }
 
-
-const QnA = () => { // 컴포넌트 이름이 'QnA'이므로 통일합니다.
-    // 초기 boardData를 빈 배열로 변경하여 Firestore에서 데이터를 가져오도록 합니다.
-    const [boardData, setBoardData] = useState([]); 
+//Q&A 게시판의 모든 로직과 상태를 관리하는 메인 컴포넌트
+const QnA = () => { 
+    const [boardData, setBoardData] = useState([]); //게시판 데이터 저장, firebase에 실시간으로 불러옴
     
-    // 페이징 관련 상태
-    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-    const [commentsPerPage] = useState(3); // 페이지당 댓글 수
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호를 저장
+    const [commentsPerPage] = useState(3); //한 페이지에 표시할 질문의 개수
 
-    //입력상자
     const [iWriter, setIWriter] = useState('');
     const [iContents, setIContents] = useState('');
-    const [editId, setEditId] = useState(null); // idx 대신 id 사용 (Firestore 문서 ID)
+    const [editId, setEditId] = useState(null); 
     
-    // nextVal 시퀀스 제거 (Firestore가 자동 ID 생성)
-    // const [nextVal, setNextVal] = useState(7); 
-
-    // **Helper 함수: 데이터를 날짜(최신순)으로 정렬**
-    // 이 함수는 Firestore에서 이미 정렬해서 가져오므로 필요 없게 됩니다.
-    // const sortBoardData = (data) => {
-    //     return [...data].sort((a, b) => new Date(b.postdate) - new Date(a.postdate));
-    // };
-
-    // Firestore에서 데이터 가져오기 (useEffect)
     useEffect(() => {
-        const qnaCollectionRef = collection(firestore, 'qna'); // 'qna' 컬렉션 사용
-        // postdate를 기준으로 내림차순 정렬 (최신 글이 먼저 오도록)
-        const q = query(qnaCollectionRef, orderBy('postdate', 'desc')); 
+        const qnaCollectionRef = collection(firestore, 'qna'); //qna 컬렉션 참조
+        const q = query(qnaCollectionRef, orderBy('postdate', 'desc')); //postdate를 기준으로 내림차순 정렬
 
         const unsubscribe = onSnapshot(q, (snapshot) => {
             const posts = [];
             snapshot.forEach((doc) => {
                 const data = doc.data();
-                posts.push({ id: doc.id, ...data }); // Firestore 문서 ID를 'id'로 저장
+                posts.push({ id: doc.id, ...data }); 
             });
             setBoardData(posts);
-            // setNextVal(maxNo + 1); // nextVal 로직은 이제 Firestore에 의존하지 않습니다.
         }, (error) => {
             console.error("Firestore 데이터 로드 오류:", error);
         });
 
-        // 컴포넌트 언마운트 시 리스너 해제
         return () => unsubscribe(); 
-    }, []); // 최초 렌더링 시 한 번만 실행
+    }, []); // 컴포넌트 마운트 시 한번만 실행
 
-
-    //댓글 작성 및 수정 (Firestore 연동)
-    const saveComment = async () => { // 비동기 함수로 변경
+    //질문 저장
+    const saveComment = async () => { 
         if (iWriter.trim() === '' || iContents.trim() === '') {
             alert('작성자와 내용을 모두 입력해주세요!');
             return;
@@ -253,22 +263,19 @@ const QnA = () => { // 컴포넌트 이름이 'QnA'이므로 통일합니다.
 
         try {
             if (editId === null) {
-                // 댓글 작성: Firestore에 새 문서 추가
-                await addDoc(collection(firestore, 'qna'), { // 'qna' 컬렉션에 추가
+                await addDoc(collection(firestore, 'qna'), {  //qna 컬렉션에 새 문서 추가
                     writer: iWriter,
-                    postdate: nowDate(), // 현재 날짜 시간 (형식 유지)
+                    postdate: nowDate(), 
                     contents: iContents,
                     likes: 0,
                 });
                 alert('질문이 작성되었습니다!');
-            } else {
-                // 댓글 수정: 기존 문서 업데이트
-                const postDocRef = doc(firestore, 'qna', editId); // 문서 참조 (editId는 문서의 ID)
+            } 
+            else {
+                const postDocRef = doc(firestore, 'qna', editId); // 수정할 문서 참조
                 await updateDoc(postDocRef, {
                     writer: iWriter,
                     contents: iContents,
-                    // postdate는 수정 시 변경하지 않는 것이 일반적입니다.
-                    // postdate: nowDate(), // 필요하다면 업데이트
                 });
                 alert('질문이 수정되었습니다!');
             }
@@ -277,20 +284,19 @@ const QnA = () => { // 컴포넌트 이름이 'QnA'이므로 통일합니다.
             alert("게시물 작성/수정에 실패했습니다. 다시 시도해주세요.");
         }
 
-        // 입력 폼 초기화 및 페이지 이동
         setIWriter('');
         setIContents('');
         setEditId(null); 
-        setCurrentPage(1); // 새 댓글/수정 후 1페이지로 이동
+                    const postDocRef = doc(firestore, 'qna', id); // 해당 ID의 문서 참조
+        setCurrentPage(1); // 작성, 수정 후 1페이지로 이동
     };
 
-    //좋아요 (Firestore 연동)
-    const likePlus = async (id) => { // 비동기 함수로 변경 (idx 대신 id)
+    // 좋아요 수 증가 함수
+    const likePlus = async (id) => { 
         try {
-            const postDocRef = doc(firestore, 'qna', id);
-            // 현재 좋아요 수를 가져와서 1 증가
-            // Optimistic update를 사용하면 사용자 경험이 좋지만, 여기서는 데이터를 읽고 업데이트하는 방식 사용
-            const currentPost = boardData.find(item => item.id === id);
+            const postDocRef = doc(firestore, 'qna', id); //id문서 참조
+            const currentPost = boardData.find(item => item.id === id); // 현재 게시물의 데이터 찾기
+
             if (currentPost) {
                 await updateDoc(postDocRef, {
                     likes: currentPost.likes + 1
@@ -302,19 +308,20 @@ const QnA = () => { // 컴포넌트 이름이 'QnA'이므로 통일합니다.
         }
     };
 
-    //댓글삭제 (Firestore 연동)
-    const deleteComment = async (id) => { // 비동기 함수로 변경 (idx 대신 id)
+    //질문 삭제 함수
+    const deleteComment = async (id) => { 
         if (window.confirm('질문을 삭제할까요?')) {
             try {
                 const postDocRef = doc(firestore, 'qna', id);
-                await deleteDoc(postDocRef); // Firestore 문서 삭제
+                await deleteDoc(postDocRef); // 문서 삭제
                 alert('질문이 삭제되었습니다!');
 
-                const totalPages = Math.ceil((boardData.length - 1) / commentsPerPage); 
-                if (currentPage > totalPages && totalPages > 0) {
-                    setCurrentPage(totalPages);
-                } else if (boardData.length - 1 === 0) { 
-                    setCurrentPage(1);
+                //삭제 후 총 페이지 수 재계산
+                const totalPages = Math.ceil((boardData.length - 1) / commentsPerPage);  
+                if (currentPage > totalPages && totalPages > 0) { // 현재 페이지가 총 페이지 수 초과하면
+                    setCurrentPage(totalPages); // 마지막 페이지로 이동
+                } else if (boardData.length - 1 === 0) {  // 마지막 질문이 삭제되어 게시물이 없으면
+                    setCurrentPage(1); // 1페이지로 설정(빈 페이지)
                 }
 
             } catch (error) {
@@ -324,10 +331,11 @@ const QnA = () => { // 컴포넌트 이름이 'QnA'이므로 통일합니다.
         }
     };
 
-    //댓글수정 데이터 로드 (idx 대신 id)
+    //질문 수정 모드 활성화 함수
     const editComment = (id) => { 
         console.log(`${id}번 게시물 수정하기`);
-        const editData = boardData.find((row) => row.id === id); 
+        const editData = boardData.find((row) => row.id === id);  // 수정할 게시물 데이터 찾기
+
         if (editData) {
             setIWriter(editData.writer);
             setIContents(editData.contents);
@@ -335,19 +343,20 @@ const QnA = () => { // 컴포넌트 이름이 'QnA'이므로 통일합니다.
         }
     };
 
+    //새 질문 작성을 위해 모달을 열기 전 입력 필드를 초기화하는 함수
     const newOpenModal = () => {
         setIWriter('');
         setIContents('');
         setEditId(null); 
     };
 
-    // 페이지 변경 함수
+    //페이지 번호 변경 함수
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <>
             <div className="container mt-4 free-board-container">
-                <BoardView />
+                <BoardView  formatDisplayDate={formatDisplayDate}/>
                 <CommentBtn newOpenModal={newOpenModal} />
                 <ModalWindow
                     saveComment={saveComment}
@@ -357,16 +366,17 @@ const QnA = () => { // 컴포넌트 이름이 'QnA'이므로 통일합니다.
                     setIContents={setIContents}
                 />
                 <CommentList 
-                    boardData={boardData} // Firestore에서 이미 정렬해서 가져오므로 sortBoardData 제거
+                    boardData={boardData} 
                     likePlus={likePlus} 
                     deleteComment={deleteComment} 
                     editComment={editComment}
                     currentPage={currentPage} 
                     commentsPerPage={commentsPerPage}
+                    formatDisplayDate={formatDisplayDate}
                 />
                 <Pagination
                     commentsPerPage={commentsPerPage}
-                    totalComments={boardData.length} // 총 댓글 수는 Firestore에서 가져온 boardData의 길이를 사용
+                    totalComments={boardData.length} 
                     paginate={paginate}
                     currentPage={currentPage}
                 />
@@ -375,4 +385,4 @@ const QnA = () => { // 컴포넌트 이름이 'QnA'이므로 통일합니다.
     );
 };
 
-export default QnA; // 컴포넌트 이름에 맞춰 export
+export default QnA; 

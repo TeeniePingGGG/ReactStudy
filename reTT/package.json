@@ -1,5 +1,5 @@
 {
-  "name": "reactapp-project-jinkyeong",
+  "name": "rett",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -26,6 +26,5 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "vite": "^6.3.5"
-  },
-  "homepage": "http://jinkyeong.dothome.co.kr/"
+  }
 }

@@ -23,11 +23,13 @@ function EditRe({ currentUser, onUpdateUser }) {
         detailAddress: currentUser.detailAddress || ''
     });
 
+    //입력 필그 값이 변경될때 호출되는 함수
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
+    //폼 제출시 호출되는 함수
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -42,9 +44,11 @@ function EditRe({ currentUser, onUpdateUser }) {
             }
         }
 
+        //기존 currentUser정보와 폼에서 입력된 정보를 병합하여 업데이트될 사용자 객체 생성
         const updatedUser = {
             ...currentUser,
-            password: formData.password || currentUser.password,
+            //새 비번을 입력했다면 새 비번을, 아니면 기존 비번을 유지
+            password: formData.password || currentUser.password, 
             name: formData.name,
             email: formData.email,
             phone: formData.phone,
@@ -53,17 +57,19 @@ function EditRe({ currentUser, onUpdateUser }) {
             detailAddress: formData.detailAddress
         };
 
-        onUpdateUser(updatedUser);
+        onUpdateUser(updatedUser); //업데이트된 사용자 정보를 전달
 
         alert('회원 정보가 성공적으로 수정되었습니다!');
         navigate('/info');
     };
 
+    //우편번호 검색 버튼 클릭시 호출 함수(API 사용)
     const handleZipcodeSearch = () => {
+
         new window.daum.Postcode({
-            oncomplete: function(data) {
-                let fullAddress = data.address;
-                let extraAddress = '';
+            oncomplete: function(data) { //주소 검색이 완료되었을때 실행될 콜백 함수
+                let fullAddress = data.address; //기본주소
+                let extraAddress = ''; //참고 항목 주소
 
                 if (data.addressType === 'R') {
                     if (data.bname !== '') {

@@ -1,11 +1,13 @@
 import { useRef } from "react";
 
 const ChatStart = () => {
-  const refRoom = useRef();
-  const refId = useRef();
+  const refRoom = useRef(); //채팅방 이름을 입력받는 요소에 접근하기 위한 Ref
+  const refId = useRef(); // 사용자 ID를 입력받는 요소에 접근하기 위한 Ref
+
   const openChatWin = () => {
+    
     window.open(
-      `/chat/talk?roomId=${refRoom.current.value}&userId=${refId.current.value}`,
+      `#/chat/talk?roomId=${refRoom.current.value}&userId=${refId.current.value}`,
       '',
       'width=500, height=700'
     );

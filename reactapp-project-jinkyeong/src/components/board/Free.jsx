@@ -28,6 +28,7 @@ const nowDate = () => {
     return `${year}년 ${month}월 ${day}일 ${ampm} ${hours}:${formattedMinutes}`;
 };
 
+//게시물 날짜를 화면에 표시하기 적절한 형식으로 변환하는 함수(오늘 날짜는 시간까지, 아니면 년 월 일만 표시)
 const formatDisplayDate = (postDateString) => {
     const today = new Date();
     const currentYear = today.getFullYear();
@@ -39,27 +40,10 @@ const formatDisplayDate = (postDateString) => {
         return "";
     }
 
+    //년 월 일 정보 추출(정규식 사용)
     const yearMatch = postDateString.match(/(\d{4})년/);
     const monthMatch = postDateString.match(/(\d{2})월/);
     const dayMatch = postDateString.match(/(\d{2})일/);
-
-    if (!yearMatch || !monthMatch || !dayMatch) {
-        const datePart = postDateString.split(' ')[0];
-        const parts = datePart.match(/(\d{4})년 (\d{2})월 (\d{2})일/);
-
-        if (parts) {
-            const postYear = parseInt(parts[1], 10);
-            const postMonth = parseInt(parts[2], 10);
-            const postDay = parseInt(parts[3], 10);
-
-            if (postYear === currentYear && postMonth === currentMonth && postDay === currentDay) {
-                return postDateString;
-            } else {
-                return `${postYear}년 ${parts[2]}월 ${parts[3]}일`;
-            }
-        }
-        return postDateString;
-    }
 
     const postYear = parseInt(yearMatch[1], 10);
     const postMonth = parseInt(monthMatch[1], 10);
@@ -74,29 +58,35 @@ const formatDisplayDate = (postDateString) => {
 
 
 function Free() {
-    const [boardData, setBoardData] = useState([]);
-    const [nextNo, setNextNo] = useState(1);
-    const navigate = useNavigate();
+    const [boardData, setBoardData] = useState([]); // 게시물 데이터를 저장
+    const [nextNo, setNextNo] = useState(1); // 다음 게시물 번호를 저장
+    const navigate = useNavigate(); // 페이지 이동을 위한 훅 
 
+    //Firestore에서 게시물 데이터를 실시간으로 가져옴
     useEffect(() => {
         const boardCollectionRef = collection(firestore, 'board');
-        const q = query(boardCollectionRef, orderBy('no'));
+        const q = query(boardCollectionRef, orderBy('no')); // no를 기준으로 오름차순으로 정렬
 
+        //onSnapshot: 데이터 변경을 실시간으로 감지
         const unsubscribe = onSnapshot(q, (snapshot) => {
-            const posts = []; // `posts` 변수가 여기서 정의됩니다.
-            let maxNo = 0;
+            const posts = []; //받아온 게시물 데이터를 담을 배열
+            let maxNo = 0; //가장 큰 no를 찾기 위한 변수
+
+            // 각 게시물 순회
             snapshot.forEach((doc) => {
-                const data = doc.data();
-                posts.push({ id: doc.id, ...data });
-                if (data.no && data.no > maxNo) {
+                const data = doc.data(); // 문서 데이터 가져오기
+                posts.push({ id: doc.id, ...data }); //문서 id와 데이터를 배열에 추가
+                if (data.no && data.no > maxNo) { //'no' 필드가 있고 현재 maxNo보가 크면 업데이트
                     maxNo = data.no;
                 }
             });
+            
+        // 게시물 번호를 다시 부여하고 정렬
         const renumberedPosts = posts.sort((a, b) => a.no - b.no)
-                .map((post, index) => ({ ...post, no: index + 1 }));
+                .map((post, index) => ({ ...post, no: index + 1 })); 
 
-            setBoardData(renumberedPosts);
-            setNextNo(maxNo + 1);
+            setBoardData(renumberedPosts); 
+            setNextNo(maxNo + 1); 
 
         }, (error) => {
             console.error("Firebase 데이터 로드 오류:", error);

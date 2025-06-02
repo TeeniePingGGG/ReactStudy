@@ -1,17 +1,18 @@
-// src/components/board/Write.jsx
 import { Link } from "react-router-dom";
 import { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore'; // addDoc 임포트
-import { firestore } from '../../firestoreConfig'; // firestore 임포트
+import { collection, addDoc } from 'firebase/firestore'; 
+import { firestore } from '../../firestoreConfig'; 
 
+// 새 글 작성
 function Write(props) {
-    const nextNo = props.nextNo; // Free.jsx에서 계산된 다음 게시물 번호
+    const nextNo = props.nextNo; // 다음 게시물의 고유 번호
     const navigate = props.navigate;
     const nowDate = props.nowDate;
 
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [isProcessingFile, setIsProcessingFile] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null); //사용자가 선택한 파일객체 저장
+    const [isProcessingFile, setIsProcessingFile] = useState(false); //파일 처리 중인지 여부를 나타내는..
 
+    //파일을 선택했을때 호출되는 함수
     const handleFileChange = (e) => {
         if (e.target.files[0]) {
             setSelectedFile(e.target.files[0]);
@@ -20,6 +21,7 @@ function Write(props) {
         }
     };
 
+    //폼 제출시 호출되는 비동기 함수
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -32,7 +34,7 @@ function Write(props) {
             return;
         }
 
-        let fileData = null;
+        let fileData = null; //첨부 파일 데이터를 저장할 변수
 
         if (selectedFile) {
             setIsProcessingFile(true);
@@ -43,14 +45,14 @@ function Write(props) {
                     reader.onerror = reject;
                     reader.readAsDataURL(selectedFile);
                 });
-                const dataUrl = await filePromise;
+
+                const dataUrl = await filePromise; // 파일 읽기가 완료될때까지 기다렸다가 DataUrl을 가져옴
                 fileData = {
                     name: selectedFile.name,
                     dataUrl: dataUrl
                 };
-                console.log('파일 Data URL 변환 성공 (일부):', dataUrl.substring(0, 50) + '...');
+
             } catch (error) {
-                console.error("파일 처리 실패:", error);
                 alert("파일 처리에 실패했습니다. 다시 시도해주세요.");
                 setIsProcessingFile(false);
                 return;
@@ -61,7 +63,7 @@ function Write(props) {
 
         // 새로운 게시물 데이터 객체 생성
         const newPost = {
-            no: nextNo, // nextNo를 명시적으로 할당
+            no: nextNo, 
             writer: writer,
             title: title,
             contents: contents,
@@ -70,10 +72,9 @@ function Write(props) {
         };
 
         try {
-            // 'board' 컬렉션에 새 문서 추가
-            await addDoc(collection(firestore, 'board'), newPost);
+            await addDoc(collection(firestore, 'board'), newPost); //새 문서 추ㅅㅏ
             alert("게시물이 성공적으로 작성되었습니다.");
-            navigate("/free/list"); // 목록 페이지로 이동
+            navigate("/free/list"); 
         } catch (error) {
             console.error("게시물 작성 실패:", error);
             alert("게시물 작성에 실패했습니다. 다시 시도해주세요.");
