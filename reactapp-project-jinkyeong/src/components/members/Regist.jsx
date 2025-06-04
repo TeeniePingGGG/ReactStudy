@@ -3,7 +3,6 @@ import DaumPostcode from 'react-daum-postcode';
 import '../../style/global.css';
 
 function Regist() {
-  // 기존 상태 변수들
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');

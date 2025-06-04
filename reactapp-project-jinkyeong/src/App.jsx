@@ -21,10 +21,8 @@ import './style/global.css';
 function App() {
   const location = useLocation();
 
-  // currentUser 상태를 App 컴포넌트에서 관리
-  // 초기값은 로컬 스토리지에서 가져오거나 null
   const [currentUser, setCurrentUser] = useState(() => {
-    try { // localStorage 접근 시 오류 방지를 위해 try-catch 추가
+    try { 
       const storedUser = localStorage.getItem('currentUser');
       return storedUser ? JSON.parse(storedUser) : null;
     } catch (e) {
@@ -33,7 +31,6 @@ function App() {
     }
   });
 
-  // currentUser 상태가 변경될 때마다 로컬 스토리지에 저장 (현재 로그인된 사용자)
   useEffect(() => {
     if (currentUser) {
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
@@ -42,36 +39,27 @@ function App() {
     }
   }, [currentUser]);
 
-  // 로그인 핸들러: currentUser 상태를 업데이트
   const handleLogin = (user) => {
     setCurrentUser(user);
   };
 
-  // 로그아웃 핸들러: currentUser 상태를 null로 만들고 localStorage에서도 제거
   const handleLogout = () => {
     setCurrentUser(null);
   };
 
-  // 사용자 정보 업데이트 핸들러 (회원정보 수정 시 호출)
   const handleUpdateUser = (updatedUser) => {
-    // 1. 현재 로그인된 사용자 정보 업데이트 (UI 반영용)
     setCurrentUser(updatedUser);
 
-    // 2. 로컬 스토리지의 전체 사용자 목록 (registeredUsers) 업데이트
-    // 기존 registeredUsers 배열을 가져옴
     const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
 
-    // 업데이트된 사용자 정보를 찾아서 교체
     const updatedUsersList = registeredUsers.map(user =>
       user.id === updatedUser.id ? updatedUser : user
     );
 
-    // 업데이트된 전체 사용자 목록을 로컬 스토리지에 저장
     localStorage.setItem('registeredUsers', JSON.stringify(updatedUsersList));
   };
 
 
-  // TopNavi와 메인 타이틀을 숨길 경로.
   const hideHeadersPaths = ['/chat/talk'];
   const shouldHideHeaders = hideHeadersPaths.includes(location.pathname);
 
@@ -85,7 +73,7 @@ function App() {
         </div>
       )}
 
-      {/* TopNavi에 currentUser와 onLogout prop 전달 */}
+      {/* 특정 조건에만 웹사이트 상단에 네비게이션바를 표시*/}
       {!shouldHideHeaders && <TopNavi currentUser={currentUser} onLogout={handleLogout} />}
 
       <Routes>
