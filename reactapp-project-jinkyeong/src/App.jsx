@@ -47,6 +47,7 @@ function App() {
     setCurrentUser(null);
   };
 
+  //로그인된 사용자 정보 업데이트
   const handleUpdateUser = (updatedUser) => {
     setCurrentUser(updatedUser);
 
