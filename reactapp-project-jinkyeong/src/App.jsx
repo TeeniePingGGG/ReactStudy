@@ -1,49 +1,61 @@
-import { useState } from "react";
+import { Routes, Route, NavLink, useLocation } from 'react-router-dom'; 
+import Regist from './components/members/Regist';
+import Home from './components/Home';
+import TopNavi from './components/TopNavi';
+import Login from './components/members/Login';
+import CherryJubileePage  from './components/explain/CherryJubileePage';
+import AppleMint from './components/explain/AppleMint';
+import Amondbong from './components/explain/Amondbong';
+import Chocotree from './components/explain/chocotree';
+import Cheese from './components/explain/Cheese';
+import ChatStart from './components/ChatStart';
+import ChatMessage from './components/ChatMessage';
+// QnA 컴포넌트 임포트 추가
+import QnA from './components/board/QnA'
+import Free from './components/board/Free'
 
-// 각 기능별 컴포넌트 import
-import SignUp from "./components/Signup";
-import Login from "./components/Login";
-import Profile from "./components/Profile";
-import Logout from "./components/Logout";
+import './style/global.css';
+
 
 function App() {
-  // 현재 보여줄 화면 상태: signup, login, edit, logout 중 하나
-  const [currentView, setCurrentView] = useState("login");
+  const location = useLocation(); //현재경로 정보보
 
-  // 화면 전환 함수 - 버튼 클릭 시 실행
-  const changeView = (viewName) => {
-    setCurrentView(viewName); // viewName: 'signup', 'login', 'edit', 'logout'
-  };
+  // TopNavi와 메인 타이틀을 숨길 경로.
+  const hideHeadersPaths = ['/chat/talk']; 
+  const shouldHideHeaders = hideHeadersPaths.includes(location.pathname);
+  
+  return(
+    <>
+      
+      {!shouldHideHeaders && (
+        <div className="main-title-area"> 
+          <NavLink to="/">
+            <h1>아이스크림이 세상을 지배한다.🍦</h1>
+          </NavLink>
+        </div>
+      )}
 
-  // 화면 상태에 따라 알맞은 컴포넌트를 렌더링
-  const renderView = () => {
-    switch (currentView) {
-      case "signup":
-        return <SignUp />;
-      case "login":
-        return <Login />;
-      case "edit":
-        return <EditProfile />;
-      case "logout":
-        return <Logout />;
-      default:
-        return <Login />;
-    }
-  };
+      
+      {!shouldHideHeaders && <TopNavi/>} 
 
-  return (
-    <div>
-      {/* 상단 네비게이션 버튼 - 화면 전환 */}
-      <nav style={{ marginBottom: "20px" }}>
-        <button onClick={() => changeView("signup")}>회원가입</button>
-        <button onClick={() => changeView("login")}>로그인</button>
-        <button onClick={() => changeView("edit")}>정보수정</button>
-        <button onClick={() => changeView("logout")}>로그아웃</button>
-      </nav>
-
-      {/* 실제로 화면에 보일 컴포넌트 렌더링 */}
-      {renderView()}
-    </div>
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path="/regist" element={<Regist/>}></Route>
+        <Route path="/login" element={<Login/>}></Route>
+        <Route path="/cherryjubilee" element={<CherryJubileePage />}></Route>
+        <Route path="/applemint" element={<AppleMint />}></Route>
+        <Route path="/almondbonbon" element={<Amondbong />}></Route>
+        <Route path="/chocotreemint" element={<Chocotree />}></Route>
+        <Route path="/cheese" element={<Cheese />}></Route>
+        <Route path="/chat">
+          <Route index element={<ChatStart></ChatStart>}></Route>
+          <Route path="talk" element={<ChatMessage></ChatMessage>}></Route>
+        </Route>
+        {/* QnA 컴포넌트를 위한 새로운 Route 추가 */}
+        <Route path="/qna" element={<QnA />}></Route>
+         <Route path="/free/*" element={<Free />}></Route>
+      </Routes>
+    </>
   );
 }
 

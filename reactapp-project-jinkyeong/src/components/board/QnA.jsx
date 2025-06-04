@@ -43,7 +43,7 @@ const formatDisplayDate = (postDateString) => {
         return postDateString;
     } else {
         return `${postYear}년 ${monthMatch[0]} ${dayMatch[0]}`;
-    }
+    }a
 };
 
 
