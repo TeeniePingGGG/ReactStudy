@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, onSnapshot, query, orderBy, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { firestore } from '../../firestoreConfig'; 
+import { Link } from "react-router-dom";
 
 const nowDate = () => {
     let dateObj = new Date();
@@ -43,7 +44,7 @@ const formatDisplayDate = (postDateString) => {
         return postDateString;
     } else {
         return `${postYear}년 ${monthMatch[0]} ${dayMatch[0]}`;
-    }a
+    }
 };
 
 
@@ -215,9 +216,9 @@ function Pagination({ commentsPerPage, totalComments, paginate, currentPage }) {
                 {/* 각 페이지 번호 렌더링 */}
                 {pageNumbers.map(number => (
                     <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
-                        <a onClick={() => paginate(number)} href="#!" className="page-link">
+                        <Link onClick={() => paginate(number)} href="#!" className="page-link">
                             {number}
-                        </a>
+                        </Link>
                     </li>
                 ))}
             </ul>

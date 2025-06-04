@@ -72,7 +72,7 @@ function Write(props) {
         };
 
         try {
-            await addDoc(collection(firestore, 'board'), newPost); //새 문서 추ㅅㅏ
+            await addDoc(collection(firestore, 'board'), newPost); 
             alert("게시물이 성공적으로 작성되었습니다.");
             navigate("/free/list"); 
         } catch (error) {
