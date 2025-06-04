@@ -14,7 +14,7 @@ import ChatMessage from './components/ChatMessage';
 import QnA from './components/board/QnA';
 import Free from './components/board/Free';
 import Info from './components/members/Info';
-import EditInfo from './components/members/EditRe'; // EditRe 컴포넌트 이름이 EditInfo로 임포트됨
+import EditInfo from './components/members/EditRe'; 
 
 import './style/global.css';
 
@@ -79,7 +79,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/regist" element={<Regist />}></Route>
-        <Route path="/login" element={<Login onLogin={handleLogin} />}></Route> {/* prop 이름 'onLogin'으로 일치 */}
+        <Route path="/login" element={<Login onLogin={handleLogin} />}></Route> 
         <Route path="/info" element={<Info currentUser={currentUser} />}></Route>
         <Route path="/editinfo" element={<EditInfo currentUser={currentUser} onUpdateUser={handleUpdateUser} />}></Route>
 
